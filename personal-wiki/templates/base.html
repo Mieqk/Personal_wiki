@@ -15,10 +15,10 @@
             </div>
             
             <nav class="sidebar-nav">
-                <div class="nav-section">
-                    <a href="index.html" class="nav-link">🏠 Home</a>
-                    <a href="graph.html" class="nav-link">🕸️ Graph</a>
-                    <a href="search.html" class="nav-link">🔍 Search</a>
+                <div class="nav-section main-nav">
+                    <a href="index.html" class="nav-link {{ 'active' if current_page == 'index' else '' }}">🏠 Home</a>
+                    <a href="graph.html" class="nav-link {{ 'active' if current_page == 'graph' else '' }}">🕸️ Graph</a>
+                    <a href="search.html" class="nav-link {{ 'active' if current_page == 'search' else '' }}">🔍 Search</a>
                 </div>
                 
                 <div class="nav-section">
