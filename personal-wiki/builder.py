@@ -297,7 +297,101 @@ class WikiBuilder:
             all_pages=all_pages,
             nav_items=nav_items,
             folder_tree=self.folder_tree,
-            index_page=index_page
+            index_page=index_page,
+            current_page='index'
+        )
+    
+    def render_graph(self, all_pages: List[WikiPage]) -> str:
+        """
+        Render the graph visualization page.
+        
+        Args:
+            all_pages: List of all pages.
+            
+        Returns:
+            Rendered HTML string.
+        """
+        template = self.jinja_env.get_template("graph.html")
+        nav_items = self._build_nav_data()
+        
+        # Build graph data
+        nodes = []
+        links = []
+        slug_to_node = {}
+        
+        # Create nodes for all pages
+        for page in all_pages:
+            node_id = page.slug
+            nodes.append({
+                'id': node_id,
+                'title': page.title
+            })
+            slug_to_node[node_id] = page
+        
+        # Create links from wiki connections
+        for page in all_pages:
+            source_slug = page.slug
+            for link_title in page.links:
+                # Try to find target page by title
+                target_slug = None
+                for slug, p in slug_to_node.items():
+                    if p.title.lower() == link_title.lower():
+                        target_slug = slug
+                        break
+                
+                if not target_slug:
+                    # Try by slug directly
+                    test_slug = link_title.lower().replace(' ', '-')
+                    if test_slug in slug_to_node:
+                        target_slug = test_slug
+                
+                if target_slug and target_slug != source_slug:
+                    links.append({
+                        'source': source_slug,
+                        'target': target_slug
+                    })
+        
+        return template.render(
+            all_pages=all_pages,
+            nav_items=nav_items,
+            folder_tree=self.folder_tree,
+            graph_nodes_json=nodes,
+            graph_links_json=links,
+            current_page='graph'
+        )
+    
+    def render_search(self, all_pages: List[WikiPage]) -> str:
+        """
+        Render the search page.
+        
+        Args:
+            all_pages: List of all pages.
+            
+        Returns:
+            Rendered HTML string.
+        """
+        template = self.jinja_env.get_template("search.html")
+        nav_items = self._build_nav_data()
+        
+        # Build search data
+        search_data = []
+        for page in all_pages:
+            # Strip HTML tags from content for search
+            import re
+            clean_content = re.sub(r'<[^>]+>', '', page.content_html)
+            search_data.append({
+                'slug': page.slug,
+                'title': page.title,
+                'content': clean_content[:500],  # Limit content length
+                'tags': page.tags
+            })
+        
+        return template.render(
+            all_pages=all_pages,
+            nav_items=nav_items,
+            folder_tree=self.folder_tree,
+            search_data_json=search_data,
+            current_page='search'
         )
     
     def _build_nav_data(self) -> List[Dict[str, Any]]:
@@ -350,6 +444,18 @@ class WikiBuilder:
         index_path = self.output_dir / "index.html"
         index_path.write_text(index_html, encoding='utf-8')
         print(f"Generated: {index_path}")
+        
+        # Generate graph page
+        graph_html = self.render_graph(all_pages)
+        graph_path = self.output_dir / "graph.html"
+        graph_path.write_text(graph_html, encoding='utf-8')
+        print(f"Generated: {graph_path}")
+        
+        # Generate search page
+        search_html = self.render_search(all_pages)
+        search_path = self.output_dir / "search.html"
+        search_path.write_text(search_html, encoding='utf-8')
+        print(f"Generated: {search_path}")
         
         # Copy static files
         static_dir = Path(__file__).parent / "static"

@@ -169,6 +169,18 @@ a:hover {
     text-decoration: none;
 }
 
+.nav-link.active {
+    background: var(--accent-bg);
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+.main-nav {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
 .page-list {
     list-style: none;
 }
