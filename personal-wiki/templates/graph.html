@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🕸️ Граф связей - Personal Wiki</title>
+    <link rel="stylesheet" href="{{ 'static/style.css' | url }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">📚 Personal Wiki</h1>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    <span>Home</span>
+                </a>
+                <a href="graph.html" class="nav-item active">
+                    <span class="nav-icon">🕸️</span>
+                    <span>Graph</span>
+                </a>
+                <a href="search.html" class="nav-item">
+                    <span class="nav-icon">🔍</span>
+                    <span>Search</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-section">
+                <h3 class="section-title">Pages</h3>
+                <ul class="page-list">
+                    {% for page in all_pages %}
+                    <li>
+                        <a href="{{ page.slug }}.html" class="page-link">{{ page.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3 class="section-title">Folders</h3>
+                <ul class="folder-list">
+                    {% for folder, pages in folders.items() %}
+                    <li class="folder-item">
+                        <span class="folder-icon">📁</span>
+                        <span>{{ folder }}</span>
+                        <span class="folder-count">{{ pages|length }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2 class="page-title">🕸️ Граф связей</h2>
+                <div class="graph-controls">
+                    <button id="zoomIn" class="control-btn" title="Приблизить">+</button>
+                    <button id="zoomOut" class="control-btn" title="Отдалить">−</button>
+                    <button id="resetZoom" class="control-btn" title="Сбросить">⟲</button>
+                </div>
+            </header>
+            
+            <div class="content-wrapper">
+                <div id="graphContainer" class="graph-container glass-panel"></div>
+                <div id="graphInfo" class="graph-info glass-panel">
+                    <h3>Информация</h3>
+                    <p>Кликните на узел, чтобы перейти к заметке</p>
+                    <p id="nodeCount">Всего узлов: 0</p>
+                    <p id="linkCount">Всего связей: 0</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Данные графа
+        const graphData = {
+            nodes: {{ graph_nodes_json | safe }},
+            links: {{ graph_links_json | safe }}
+        };
+        
+        // Размеры
+        const container = document.getElementById('graphContainer');
+        let width = container.clientWidth;
+        let height = container.clientHeight;
+        
+        // Обновление размеров при ресайзе
+        window.addEventListener('resize', () => {
+            width = container.clientWidth;
+            height = container.clientHeight;
+            svg.attr('width', width).attr('height', height);
+        });
+        
+        // SVG холст
+        const svg = d3.select('#graphContainer')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .call(d3.zoom().on('zoom', (event) => {
+                g.attr('transform', event.transform);
+            }))
+            .append('g');
+        
+        const g = svg.append('g');
+        
+        // Информация о количестве
+        document.getElementById('nodeCount').textContent = `Всего узлов: ${graphData.nodes.length}`;
+        document.getElementById('linkCount').textContent = `Всего связей: ${graphData.links.length}`;
+        
+        // Симуляция физики
+        const simulation = d3.forceSimulation(graphData.nodes)
+            .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(150))
+            .force('charge', d3.forceManyBody().strength(-500))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force('collide', d3.forceCollide().radius(40));
+        
+        // Отрисовка связей
+        const link = g.append('g')
+            .selectAll('line')
+            .data(graphData.links)
+            .join('line')
+            .attr('stroke', '#6366f1')
+            .attr('stroke-opacity', 0.6)
+            .attr('stroke-width', 2)
+            .attr('class', 'graph-link');
+        
+        // Отрисовка узлов
+        const node = g.append('g')
+            .selectAll('g')
+            .data(graphData.nodes)
+            .join('g')
+            .attr('class', 'graph-node')
+            .call(d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended));
+        
+        // Круги узлов
+        node.append('circle')
+            .attr('r', 20)
+            .attr('fill', '#f472b6')
+            .attr('stroke', '#fff')
+            .attr('stroke-width', 2)
+            .style('cursor', 'pointer')
+            .on('click', (event, d) => {
+                window.location.href = `${d.id}.html`;
+            })
+            .on('mouseover', function(event, d) {
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr('r', 25)
+                    .attr('fill', '#ec4899');
+                
+                tooltip.style('opacity', 1)
+                    .text(d.title);
+            })
+            .on('mousemove', function(event, d) {
+                tooltip
+                    .style('left', (event.pageX + 10) + 'px')
+                    .style('top', (event.pageY - 10) + 'px');
+            })
+            .on('mouseout', function(event, d) {
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr('r', 20)
+                    .attr('fill', '#f472b6');
+                
+                tooltip.style('opacity', 0);
+            });
+        
+        // Подписи узлов
+        node.append('text')
+            .text(d => d.title.length > 15 ? d.title.substring(0, 15) + '...' : d.title)
+            .attr('x', 25)
+            .attr('y', 5)
+            .attr('font-size', '12px')
+            .attr('fill', '#e2e8f0')
+            .style('pointer-events', 'none');
+        
+        // Тултип
+        const tooltip = d3.select('body')
+            .append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0);
+        
+        // Обновление позиций
+        simulation.on('tick', () => {
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+            
+            node.attr('transform', d => `translate(${d.x},${d.y})`);
+        });
+        
+        // Функции перетаскивания
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+        
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+        
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+        
+        // Контролы зума
+        document.getElementById('zoomIn').addEventListener('click', () => {
+            svg.transition().call(d3.zoom().scaleBy, 1.3);
+        });
+        
+        document.getElementById('zoomOut').addEventListener('click', () => {
+            svg.transition().call(d3.zoom().scaleBy, 0.7);
+        });
+        
+        document.getElementById('resetZoom').addEventListener('click', () => {
+            svg.transition().call(d3.zoom().transform, d3.zoomIdentity);
+        });
+    </script>
+    
+    <style>
+        .graph-container {
+            height: calc(100vh - 180px);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .graph-container svg {
+            cursor: grab;
+        }
+        
+        .graph-container svg:active {
+            cursor: grabbing;
+        }
+        
+        .graph-info {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 16px;
+        }
+        
+        .graph-info h3 {
+            margin-bottom: 15px;
+            color: #f472b6;
+        }
+        
+        .graph-info p {
+            margin: 8px 0;
+            color: #cbd5e1;
+        }
+        
+        .graph-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .control-btn {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-btn:hover {
+            background: rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.95);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            pointer-events: none;
+            border: 1px solid rgba(244, 114, 182, 0.3);
+            backdrop-filter: blur(8px);
+        }
+        
+        .graph-link {
+            transition: stroke-width 0.3s ease;
+        }
+        
+        .graph-node:hover .graph-link {
+            stroke-width: 3;
+        }
+    </style>
+</body>
+</html>
