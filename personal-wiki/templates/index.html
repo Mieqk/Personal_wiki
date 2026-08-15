@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Personal Wiki{% endblock %}
+
+{% block content %}
+<div class="home-page">
+    <header class="page-header">
+        <h1>📚 Welcome to Your Personal Wiki</h1>
+    </header>
+    
+    <section class="overview">
+        <h2>All Pages ({{ all_pages|length }})</h2>
+        
+        {% if all_pages %}
+        <div class="page-grid">
+            {% for page in all_pages|sort(attribute='title') %}
+            <div class="page-card">
+                <h3><a href="{{ page.slug }}.html">{{ page.title }}</a></h3>
+                {% if page.folder_path %}
+                <p class="folder-path">📁 {{ page.folder_path }}</p>
+                {% endif %}
+                {% if page.tags %}
+                <div class="tags">
+                    {% for tag in page.tags %}
+                    <span class="tag">#{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-message">No pages yet. Add some Markdown files to the notes folder!</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
