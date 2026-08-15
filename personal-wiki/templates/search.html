@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Поиск - Personal Wiki</title>
+    <link rel="stylesheet" href="{{ 'static/style.css' | url }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">📚 Personal Wiki</h1>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    <span>Home</span>
+                </a>
+                <a href="graph.html" class="nav-item active">
+                    <span class="nav-icon">🕸️</span>
+                    <span>Graph</span>
+                </a>
+                <a href="search.html" class="nav-item active">
+                    <span class="nav-icon">🔍</span>
+                    <span>Search</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-section">
+                <h3 class="section-title">Pages</h3>
+                <ul class="page-list">
+                    {% for page in all_pages %}
+                    <li>
+                        <a href="{{ page.slug }}.html" class="page-link">{{ page.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3 class="section-title">Folders</h3>
+                <ul class="folder-list">
+                    {% for folder, pages in folders.items() %}
+                    <li class="folder-item">
+                        <span class="folder-icon">📁</span>
+                        <span>{{ folder }}</span>
+                        <span class="folder-count">{{ pages|length }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Поиск по заметкам...">
+                    <div class="search-icon">🔍</div>
+                </div>
+            </header>
+            
+            <div class="content-wrapper">
+                <div class="search-results" id="searchResults">
+                    <div class="results-header">
+                        <h2>Результаты поиска</h2>
+                        <span id="resultsCount" class="results-count">0 найдено</span>
+                    </div>
+                    <div id="resultsList" class="results-list">
+                        <!-- Результаты будут здесь -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Данные для поиска
+        const searchData = {{ search_data_json | safe }};
+        
+        const searchInput = document.getElementById('searchInput');
+        const resultsList = document.getElementById('resultsList');
+        const resultsCount = document.getElementById('resultsCount');
+        
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<mark>$1</mark>');
+        }
+        
+        function performSearch(query) {
+            const normalizedQuery = query.toLowerCase().trim();
+            
+            if (normalizedQuery.length === 0) {
+                resultsList.innerHTML = '<p class="no-results">Введите запрос для поиска</p>';
+                resultsCount.textContent = '0 найдено';
+                return;
+            }
+            
+            const results = searchData.filter(item => {
+                return item.title.toLowerCase().includes(normalizedQuery) ||
+                       item.content.toLowerCase().includes(normalizedQuery) ||
+                       item.tags.some(tag => tag.toLowerCase().includes(normalizedQuery));
+            });
+            
+            resultsCount.textContent = `${results.length} найдено`;
+            
+            if (results.length === 0) {
+                resultsList.innerHTML = '<p class="no-results">Ничего не найдено</p>';
+                return;
+            }
+            
+            resultsList.innerHTML = results.map(item => `
+                <div class="result-card glass-panel">
+                    <h3 class="result-title">
+                        <a href="${item.slug}.html">${highlightText(item.title, query)}</a>
+                    </h3>
+                    <p class="result-preview">${highlightText(item.content.substring(0, 200) + (item.content.length > 200 ? '...' : ''), query)}</p>
+                    ${item.tags.length > 0 ? `
+                        <div class="result-tags">
+                            ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+        
+        searchInput.addEventListener('input', (e) => {
+            performSearch(e.target.value);
+        });
+        
+        // Инициализация
+        performSearch('');
+    </script>
+</body>
+</html>
