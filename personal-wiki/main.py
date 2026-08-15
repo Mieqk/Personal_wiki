@@ -25,7 +25,7 @@ def cmd_build(args: argparse.Namespace) -> int:
 
 def cmd_serve(args: argparse.Namespace) -> int:
     """Handle the serve command - build and start a local server."""
-    from flask import Flask, send_from_directory, abort
+    from flask import Flask, send_from_directory, abort, redirect, url_for
     import webbrowser
     import threading
     
@@ -51,8 +51,34 @@ def cmd_serve(args: argparse.Namespace) -> int:
     def index():
         return send_from_directory(app.static_folder, 'index.html')
     
+    @app.route('/graph')
+    def graph():
+        return send_from_directory(app.static_folder, 'graph.html')
+    
+    @app.route('/search')
+    def search():
+        return send_from_directory(app.static_folder, 'search.html')
+    
+    @app.route('/new')
+    def new_page():
+        return send_from_directory(app.static_folder, 'new.html')
+    
     @app.route('/<path:path>')
     def serve_file(path):
+        # Check if it's a direct HTML file request
+        if path.endswith('.html'):
+            try:
+                return send_from_directory(app.static_folder, path)
+            except:
+                abort(404)
+        
+        # Try to find the .html file
+        try:
+            return send_from_directory(app.static_folder, path + '.html')
+        except:
+            pass
+        
+        # Try in subdirectories
         try:
             return send_from_directory(app.static_folder, path)
         except:
