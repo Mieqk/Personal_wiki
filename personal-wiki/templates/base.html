@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Personal Wiki{% endblock %}</title>
+    <link rel="stylesheet" href="{{ 'static/style.css' if static_prefix else 'style.css' }}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><a href="index.html">📚 Personal Wiki</a></h1>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <a href="index.html" class="nav-link">🏠 Home</a>
+                    <a href="graph.html" class="nav-link">🕸️ Graph</a>
+                    <a href="search.html" class="nav-link">🔍 Search</a>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Pages</h3>
+                    <ul class="page-list">
+                        {% for item in nav_items %}
+                        <li class="page-item {% if page and page.slug == item.slug %}active{% endif %}">
+                            <a href="{{ item.slug }}.html">{{ item.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Folders</h3>
+                    <ul class="folder-tree">
+                        {{ folder_tree_html | safe }}
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    
+    <script src="{{ 'static/app.js' if static_prefix else 'app.js' }}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
