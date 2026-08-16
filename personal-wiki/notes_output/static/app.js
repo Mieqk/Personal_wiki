@@ -635,6 +635,34 @@ const WikiApp = {
         }
     },
 
+    // Handle delete page from button click
+    handleDeletePage(slug) {
+        const t = this.translations[this.currentLang];
+        
+        if (confirm(`${t.confirmDelete}`)) {
+            // Call API to delete the page
+            fetch('/api/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ slug })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(t.deleteSuccess);
+                    window.location.href = 'index.html';
+                } else {
+                    alert(`${t.deleteError}: ${data.error}`);
+                }
+            })
+            .catch(error => {
+                alert(`${t.deleteError}: ${error.message}`);
+            });
+        }
+    },
+    
     // Confirm and delete page
     confirmDelete(title, cardElement) {
         const t = this.translations[this.currentLang];

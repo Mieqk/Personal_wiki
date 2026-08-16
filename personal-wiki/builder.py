@@ -534,9 +534,9 @@ class WikiBuilder:
         # Generate edit pages for each existing page
         for page in self.pages.values():
             edit_html = self.render_edit(page, all_pages)
-            edit_dir = self.output_dir / "edit"
-            edit_dir.mkdir(exist_ok=True)
-            edit_path = edit_dir / f"{page.slug}.html"
+            edit_path = self.output_dir / "edit" / f"{page.slug}.html"
+            # Create parent directories if needed (for pages in subfolders)
+            edit_path.parent.mkdir(parents=True, exist_ok=True)
             edit_path.write_text(edit_html, encoding='utf-8')
             print(f"Generated: {edit_path}")
         
