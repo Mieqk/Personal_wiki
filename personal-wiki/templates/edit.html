@@ -168,45 +168,45 @@
         <input type="hidden" id="originalSlug" name="originalSlug" value="{{ page.slug }}">
         
         <div class="form-group">
-            <label for="title" data-translate="labelTitle">Page Title *</label>
-            <input type="text" id="title" name="title" required value="{{ page.title }}" data-translate-placeholder="placeholderTitle" placeholder="Enter page title...">
+            <label for="title" data-translate="labelTitle">Название страницы *</label>
+            <input type="text" id="title" name="title" required value="{{ page.title }}" data-translate-placeholder="placeholderTitle" placeholder="Введите название страницы...">
         </div>
         
         <div class="form-row">
             <div class="form-group">
-                <label for="folder" data-translate="labelFolder">Folder (optional)</label>
-                <input type="text" id="folder" name="folder" value="{{ page.folder_path }}" data-translate-placeholder="placeholderFolder" placeholder="e.g., daily, projects">
-                <small data-translate="folderHint">Leave empty for root folder</small>
+                <label for="folder" data-translate="labelFolder">Папка (необязательно)</label>
+                <input type="text" id="folder" name="folder" value="{{ page.folder_path }}" data-translate-placeholder="placeholderFolder" placeholder="например, daily, projects">
+                <small data-translate="folderHint">Оставьте пустым для корневой папки</small>
             </div>
             
             <div class="form-group">
-                <label for="tags" data-translate="labelTags">Tags (comma-separated)</label>
-                <input type="text" id="tags" name="tags" value="{{ page.tags | join(', ') }}" data-translate-placeholder="placeholderTags" placeholder="e.g., todo, important">
+                <label for="tags" data-translate="labelTags">Теги (через запятую)</label>
+                <input type="text" id="tags" name="tags" value="{{ page.tags | join(', ') }}" data-translate-placeholder="placeholderTags" placeholder="например, todo, important">
             </div>
         </div>
         
         <div class="form-group">
-            <label for="content" data-translate="labelContent">Content *</label>
-            <textarea id="content" name="content" required data-translate-placeholder="placeholderContent" placeholder="Write your content in Markdown...">{{ page.raw_content }}</textarea>
+            <label for="content" data-translate="labelContent">Содержимое *</label>
+            <textarea id="content" name="content" required data-translate-placeholder="placeholderContent" placeholder="Напишите содержимое в формате Markdown...">{{ page.raw_content }}</textarea>
             <small data-translate="contentHint">Supports Markdown syntax: **bold**, *italic*, `code`, [[wiki links]], etc.</small>
         </div>
         
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary" data-translate="btnSave">💾 Save Changes</button>
-            <button type="button" class="btn btn-secondary" data-translate="btnCancel" onclick="window.location.href='{{ page.slug }}.html'">Cancel</button>
+            <button type="submit" class="btn btn-primary" data-translate="btnSave">💾 Сохранить изменения</button>
+            <button type="button" class="btn btn-secondary" data-translate="btnCancel" onclick="window.location.href='{{ page.slug }}.html'">Отмена</button>
         </div>
     </form>
     
     <div class="help-section">
-        <h3 data-translate="markdownTips">📝 Markdown Tips</h3>
+        <h3 data-translate="markdownTips">📝 Советы по Markdown</h3>
         <ul>
-            <li><code>**bold text**</code> for <strong>bold</strong></li>
-            <li><code>*italic text*</code> for <em>italic</em></li>
-            <li><code>`inline code`</code> for <code>code</code></li>
-            <li><code>[[Page Title]]</code> for wiki links</li>
-            <li><code># Heading 1</code>, <code>## Heading 2</code> for headings</li>
-            <li><code>- item</code> for bullet lists</li>
-            <li><code>1. item</code> for numbered lists</li>
+            <li><code>**жирный текст**</code> для <strong>жирного</strong></li>
+            <li><code>*курсив*</code> для <em>курсива</em></li>
+            <li><code>`встроенный код`</code> для <code>кода</code></li>
+            <li><code>[[Название страницы]]</code> для вики-ссылок</li>
+            <li><code># Заголовок 1</code>, <code>## Заголовок 2</code> для заголовков</li>
+            <li><code>- элемент</code> для маркированных списков</li>
+            <li><code>1. элемент</code> для нумерованных списков</li>
         </ul>
     </div>
 </div>

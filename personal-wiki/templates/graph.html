@@ -220,25 +220,25 @@
 {% block content %}
 <div class="graph-page-container">
     <header class="graph-header">
-        <h2 data-translate="graphViewTitle">🕸️ Graph View</h2>
+        <h2 data-translate="graphViewTitle">🕸️ Вид графа</h2>
         <div class="graph-controls">
-            <button id="zoomIn" class="control-btn" data-translate="zoomIn" title="Zoom In">+</button>
-            <button id="zoomOut" class="control-btn" data-translate="zoomOut" title="Zoom Out">−</button>
-            <button id="resetZoom" class="control-btn" data-translate="resetZoom" title="Reset">⟲</button>
+            <button id="zoomIn" class="control-btn" data-translate="zoomIn" title="Увеличить">+</button>
+            <button id="zoomOut" class="control-btn" data-translate="zoomOut" title="Уменьшить">−</button>
+            <button id="resetZoom" class="control-btn" data-translate="resetZoom" title="Сбросить">⟲</button>
         </div>
     </header>
     
     <div class="graph-main">
         <div id="graphContainer" class="graph-container"></div>
         <div class="graph-sidebar">
-            <h3 data-translate="graphInfo">Graph Info</h3>
-            <p data-translate="clickNode">Click on a node to navigate to the page.</p>
+            <h3 data-translate="graphInfo">Информация о графе</h3>
+            <p data-translate="clickNode">Нажмите на узел для перехода к странице.</p>
             <div class="graph-stat">
-                <span data-translate="totalNodes">Total Nodes:</span>
+                <span data-translate="totalNodes">Всего узлов:</span>
                 <span id="nodeCount" class="graph-stat-value">0</span>
             </div>
             <div class="graph-stat">
-                <span data-translate="totalLinks">Total Links:</span>
+                <span data-translate="totalLinks">Всего связей:</span>
                 <span id="linkCount" class="graph-stat-value">0</span>
             </div>
         </div>
