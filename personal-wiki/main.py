@@ -151,6 +151,7 @@ created: {today}
                 'success': True,
                 'message': 'Page created successfully',
                 'slug': slug,
+                'folder': folder if folder else '',
                 'path': str(file_path)
             })
         except Exception as e:
@@ -298,7 +299,8 @@ created: {original_created}
             
             return jsonify({
                 'success': True,
-                'message': 'Page deleted successfully'
+                'message': 'Page deleted successfully',
+                'slug': slug
             })
         except Exception as e:
             return jsonify({'error': str(e)}), 500

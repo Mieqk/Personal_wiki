@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Personal Wiki{% endblock %}</title>
+    <title>{% block title %}Персональная Вики{% endblock %}</title>
     <link rel="stylesheet" href="{{ static_prefix|default('') }}static/style.css">
     {% block extra_head %}{% endblock %}
 </head>
@@ -11,11 +11,11 @@
     <div class="container">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h1><a href="{{ static_prefix|default('') }}index.html">📚 Personal Wiki</a></h1>
+                <h1><a href="{{ static_prefix|default('') }}index.html">📚 Персональная Вики</a></h1>
                 <div class="header-controls">
                     <!-- Theme Selector -->
                     <div class="theme-selector">
-                        <button class="theme-selector-btn" title="Select theme">🎨</button>
+                        <button class="theme-selector-btn" title="Выбрать тему">🎨</button>
                         <div class="theme-dropdown">
                             <h4 data-translate="theme">Theme</h4>
                             <div class="theme-option" data-theme="light">
@@ -47,15 +47,15 @@
                     
                     <!-- Language Selector -->
                     <div class="lang-selector">
-                        <button class="lang-selector-btn" title="Select language">EN</button>
+                        <button class="lang-selector-btn" title="Выбрать язык">EN</button>
                         <div class="lang-dropdown">
-                            <div class="lang-option" data-lang="en">English</div>
+                            <div class="lang-option" data-lang="en">Английский</div>
                             <div class="lang-option" data-lang="ru">Русский</div>
-                            <div class="lang-option" data-lang="es">Español</div>
-                            <div class="lang-option" data-lang="de">Deutsch</div>
-                            <div class="lang-option" data-lang="fr">Français</div>
-                            <div class="lang-option" data-lang="zh">中文</div>
-                            <div class="lang-option" data-lang="ja">日本語</div>
+                            <div class="lang-option" data-lang="es">Испанский</div>
+                            <div class="lang-option" data-lang="de">Немецкий</div>
+                            <div class="lang-option" data-lang="fr">Французский</div>
+                            <div class="lang-option" data-lang="zh">Китайский</div>
+                            <div class="lang-option" data-lang="ja">Японский</div>
                         </div>
                     </div>
                 </div>
