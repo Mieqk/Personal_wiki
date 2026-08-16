@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from builder import WikiBuilder
+from frontmatter import parse_frontmatter
 
 
 def cmd_build(args: argparse.Namespace) -> int:
@@ -130,6 +131,99 @@ created: {today}
                 'message': 'Page created successfully',
                 'slug': slug,
                 'path': str(file_path)
+            })
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/api/update', methods=['POST'])
+    def update_page():
+        """API endpoint to update an existing wiki page."""
+        from flask import request, jsonify
+        import datetime
+        
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        
+        original_slug = data.get('originalSlug', '').strip()
+        title = data.get('title', '').strip()
+        folder = data.get('folder', '').strip()
+        tags_input = data.get('tags', '').strip()
+        content = data.get('content', '').strip()
+        
+        if not original_slug or not title or not content:
+            return jsonify({'error': 'Original slug, title and content are required'}), 400
+        
+        # Parse tags
+        tags = []
+        if tags_input:
+            tags = [tag.strip() for tag in tags_input.split(',') if tag.strip()]
+        
+        # Generate new slug from title
+        new_slug = title.lower()
+        for char in '-<>[]{}()/\\?@&!#$%*+|=^_~':
+            new_slug = new_slug.replace(char, '-')
+        new_slug = new_slug.strip('-')
+        
+        # Find the original file
+        notes_dir = source
+        original_file = notes_dir / f"{original_slug}.md"
+        
+        # Also check in subdirectories
+        if not original_file.exists():
+            for md_file in notes_dir.rglob(f"{original_slug}.md"):
+                original_file = md_file
+                break
+        
+        if not original_file.exists():
+            return jsonify({'error': 'Original file not found'}), 404
+        
+        # Determine new file path
+        if folder:
+            folder_path = notes_dir / folder
+            folder_path.mkdir(parents=True, exist_ok=True)
+            new_file_path = folder_path / f"{new_slug}.md"
+        else:
+            new_file_path = notes_dir / f"{new_slug}.md"
+        
+        # Get original created date to preserve it
+        original_content = original_file.read_text(encoding='utf-8')
+        original_frontmatter, _ = parse_frontmatter(original_content)
+        original_created = original_frontmatter.get('created', datetime.datetime.now().strftime('%Y-%m-%d'))
+        
+        # Build frontmatter with preserved created date
+        frontmatter = f"""---
+title: {title}
+created: {original_created}
+"""
+        
+        if tags:
+            frontmatter += f"tags: [{', '.join(tags)}]\n"
+        
+        frontmatter += "---\n\n"
+        
+        # Full markdown content
+        markdown_content = frontmatter + content
+        
+        try:
+            # Write to new location
+            new_file_path.write_text(markdown_content, encoding='utf-8')
+            
+            # If slug changed or folder changed, delete old file
+            if new_file_path != original_file:
+                original_file.unlink()
+            
+            # Rebuild the site to include the updated page
+            output_dir = source.parent / f"{source.name}_output"
+            builder = WikiBuilder(str(source), str(output_dir))
+            builder.build()
+            
+            return jsonify({
+                'success': True,
+                'message': 'Page updated successfully',
+                'slug': new_slug,
+                'path': str(new_file_path)
             })
         except Exception as e:
             return jsonify({'error': str(e)}), 500

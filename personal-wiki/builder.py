@@ -21,6 +21,7 @@ class WikiPage:
     slug: str
     title: str
     content_html: str
+    raw_content: str = ""  # Original markdown content (without frontmatter)
     tags: List[str] = field(default_factory=list)
     created: Optional[str] = None
     links: List[str] = field(default_factory=list)  # Wiki links found in content
@@ -218,6 +219,7 @@ class WikiBuilder:
             slug=slug,
             title=title,
             content_html=html_content,
+            raw_content=body,
             tags=tags,
             created=created,
             links=wiki_links,
@@ -431,6 +433,35 @@ class WikiBuilder:
             current_page='new'
         )
     
+    def render_edit(self, page: WikiPage, all_pages: List[WikiPage]) -> str:
+        """
+        Render the edit page for an existing wiki page.
+        
+        Args:
+            page: The WikiPage to edit.
+            all_pages: List of all pages.
+            
+        Returns:
+            Rendered HTML string.
+        """
+        template = self.jinja_env.get_template("edit.html")
+        nav_items = self._build_nav_data()
+        
+        # Calculate relative path to static files based on folder depth
+        static_prefix = ""
+        if page.folder_path:
+            depth = len(page.folder_path.split("/"))
+            static_prefix = "../" * depth
+        
+        return template.render(
+            page=page,
+            all_pages=all_pages,
+            nav_items=nav_items,
+            folder_tree=self.folder_tree,
+            static_prefix=static_prefix,
+            current_page='edit'
+        )
+    
     def _build_nav_data(self) -> List[Dict[str, Any]]:
         """Build navigation data for templates."""
         nav_items = []
@@ -499,6 +530,15 @@ class WikiBuilder:
         new_path = self.output_dir / "new.html"
         new_path.write_text(new_html, encoding='utf-8')
         print(f"Generated: {new_path}")
+        
+        # Generate edit pages for each existing page
+        for page in self.pages.values():
+            edit_html = self.render_edit(page, all_pages)
+            edit_dir = self.output_dir / "edit"
+            edit_dir.mkdir(exist_ok=True)
+            edit_path = edit_dir / f"{page.slug}.html"
+            edit_path.write_text(edit_html, encoding='utf-8')
+            print(f"Generated: {edit_path}")
         
         # Copy static files
         static_dir = Path(__file__).parent / "static"
