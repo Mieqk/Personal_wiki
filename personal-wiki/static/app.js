@@ -35,7 +35,25 @@ const WikiApp = {
             blue: '💙 Blue',
             green: '💚 Green',
             purple: '💜 Purple',
-            orange: '🧡 Orange'
+            orange: '🧡 Orange',
+            // New Page specific
+            createNewPage: 'Create New Page',
+            createPageDesc: 'Create a new wiki page with Markdown formatting',
+            labelTitle: 'Page Title *',
+            placeholderTitle: 'Enter page title...',
+            labelFolder: 'Folder (optional)',
+            placeholderFolder: 'e.g., daily, projects',
+            folderHint: 'Leave empty for root folder',
+            labelTags: 'Tags (comma-separated)',
+            placeholderTags: 'e.g., todo, important',
+            labelContent: 'Content *',
+            placeholderContent: 'Write your content in Markdown...',
+            contentHint: 'Supports Markdown syntax: **bold**, *italic*, `code`, [[wiki links]], etc.',
+            btnCreate: '✨ Create Page',
+            btnCancel: 'Cancel',
+            markdownTips: '📝 Markdown Tips',
+            fillRequired: 'Please fill in the required fields (Title and Content)',
+            toCreatePage: 'To create this page:'
         },
         ru: {
             home: '🏠 Главная',
@@ -68,7 +86,25 @@ const WikiApp = {
             blue: '💙 Синяя',
             green: '💚 Зелёная',
             purple: '💜 Фиолетовая',
-            orange: '🧡 Оранжевая'
+            orange: '🧡 Оранжевая',
+            // New Page specific
+            createNewPage: 'Создать новую страницу',
+            createPageDesc: 'Создать новую вики-страницу с форматированием Markdown',
+            labelTitle: 'Название страницы *',
+            placeholderTitle: 'Введите название страницы...',
+            labelFolder: 'Папка (необязательно)',
+            placeholderFolder: 'например, daily, projects',
+            folderHint: 'Оставьте пустым для корневой папки',
+            labelTags: 'Теги (через запятую)',
+            placeholderTags: 'например, todo, important',
+            labelContent: 'Содержимое *',
+            placeholderContent: 'Напишите содержимое в формате Markdown...',
+            contentHint: 'Поддерживается синтаксис Markdown: **жирный**, *курсив*, `код`, [[wiki-ссылки]] и т.д.',
+            btnCreate: '✨ Создать страницу',
+            btnCancel: 'Отмена',
+            markdownTips: '📝 Советы по Markdown',
+            fillRequired: 'Пожалуйста, заполните обязательные поля (Название и Содержимое)',
+            toCreatePage: 'Для создания этой страницы:'
         },
         es: {
             home: '🏠 Inicio',
@@ -101,7 +137,25 @@ const WikiApp = {
             blue: '💙 Azul',
             green: '💚 Verde',
             purple: '💜 Morado',
-            orange: '🧡 Naranja'
+            orange: '🧡 Naranja',
+            // New Page specific
+            createNewPage: 'Crear nueva página',
+            createPageDesc: 'Crear una nueva página wiki con formato Markdown',
+            labelTitle: 'Título de la página *',
+            placeholderTitle: 'Ingrese el título de la página...',
+            labelFolder: 'Carpeta (opcional)',
+            placeholderFolder: 'ej. daily, projects',
+            folderHint: 'Dejar vacío para carpeta raíz',
+            labelTags: 'Etiquetas (separadas por comas)',
+            placeholderTags: 'ej. todo, important',
+            labelContent: 'Contenido *',
+            placeholderContent: 'Escribe tu contenido en Markdown...',
+            contentHint: 'Soporta sintaxis Markdown: **negrita**, *cursiva*, `código`, [[enlaces wiki]], etc.',
+            btnCreate: '✨ Crear página',
+            btnCancel: 'Cancelar',
+            markdownTips: '📝 Consejos de Markdown',
+            fillRequired: 'Por favor complete los campos obligatorios (Título y Contenido)',
+            toCreatePage: 'Para crear esta página:'
         },
         de: {
             home: '🏠 Startseite',
@@ -134,7 +188,25 @@ const WikiApp = {
             blue: '💙 Blau',
             green: '💚 Grün',
             purple: '💜 Lila',
-            orange: '🧡 Orange'
+            orange: '🧡 Orange',
+            // New Page specific
+            createNewPage: 'Neue Seite erstellen',
+            createPageDesc: 'Erstellen Sie eine neue Wiki-Seite mit Markdown-Formatierung',
+            labelTitle: 'Seitentitel *',
+            placeholderTitle: 'Seitentitel eingeben...',
+            labelFolder: 'Ordner (optional)',
+            placeholderFolder: 'z.B. daily, projects',
+            folderHint: 'Leer lassen für Root-Ordner',
+            labelTags: 'Tags (durch Komma getrennt)',
+            placeholderTags: 'z.B. todo, important',
+            labelContent: 'Inhalt *',
+            placeholderContent: 'Schreiben Sie Ihren Inhalt in Markdown...',
+            contentHint: 'Unterstützt Markdown-Syntax: **fett**, *kursiv*, `code`, [[Wiki-Links]], etc.',
+            btnCreate: '✨ Seite erstellen',
+            btnCancel: 'Abbrechen',
+            markdownTips: '📝 Markdown-Tipps',
+            fillRequired: 'Bitte füllen Sie die erforderlichen Felder aus (Titel und Inhalt)',
+            toCreatePage: 'Um diese Seite zu erstellen:'
         },
         fr: {
             home: '🏠 Accueil',
@@ -167,7 +239,25 @@ const WikiApp = {
             blue: '💙 Bleu',
             green: '💚 Vert',
             purple: '💜 Violet',
-            orange: '🧡 Orange'
+            orange: '🧡 Orange',
+            // New Page specific
+            createNewPage: 'Créer une nouvelle page',
+            createPageDesc: 'Créer une nouvelle page wiki avec formatage Markdown',
+            labelTitle: 'Titre de la page *',
+            placeholderTitle: 'Entrez le titre de la page...',
+            labelFolder: 'Dossier (optionnel)',
+            placeholderFolder: 'par ex. daily, projects',
+            folderHint: 'Laisser vide pour le dossier racine',
+            labelTags: 'Étiquettes (séparées par des virgules)',
+            placeholderTags: 'par ex. todo, important',
+            labelContent: 'Contenu *',
+            placeholderContent: 'Écrivez votre contenu en Markdown...',
+            contentHint: 'Syntaxe Markdown prise en charge : **gras**, *italique*, `code`, [[liens wiki]], etc.',
+            btnCreate: '✨ Créer la page',
+            btnCancel: 'Annuler',
+            markdownTips: '📝 Astuces Markdown',
+            fillRequired: 'Veuillez remplir les champs obligatoires (Titre et Contenu)',
+            toCreatePage: 'Pour créer cette page :'
         },
         zh: {
             home: '🏠 首页',
@@ -200,7 +290,25 @@ const WikiApp = {
             blue: '💙 蓝色',
             green: '💚 绿色',
             purple: '💜 紫色',
-            orange: '🧡 橙色'
+            orange: '🧡 橙色',
+            // New Page specific
+            createNewPage: '创建新页面',
+            createPageDesc: '使用 Markdown 格式创建新的维基页面',
+            labelTitle: '页面标题 *',
+            placeholderTitle: '输入页面标题...',
+            labelFolder: '文件夹（可选）',
+            placeholderFolder: '例如：daily, projects',
+            folderHint: '留空则创建到根文件夹',
+            labelTags: '标签（逗号分隔）',
+            placeholderTags: '例如：todo, important',
+            labelContent: '内容 *',
+            placeholderContent: '用 Markdown 编写内容...',
+            contentHint: '支持 Markdown 语法：**粗体**，*斜体*，`代码`，[[wiki 链接]] 等',
+            btnCreate: '✨ 创建页面',
+            btnCancel: '取消',
+            markdownTips: '📝 Markdown 提示',
+            fillRequired: '请填写必填字段（标题和内容）',
+            toCreatePage: '创建此页面的步骤:'
         },
         ja: {
             home: '🏠 ホーム',
@@ -233,7 +341,25 @@ const WikiApp = {
             blue: '💙 ブルー',
             green: '💚 グリーン',
             purple: '💜 パープル',
-            orange: '🧡 オレンジ'
+            orange: '🧡 オレンジ',
+            // New Page specific
+            createNewPage: '新しいページを作成',
+            createPageDesc: 'Markdown 形式で新しいウィキページを作成',
+            labelTitle: 'ページタイトル *',
+            placeholderTitle: 'ページタイトルを入力...',
+            labelFolder: 'フォルダー（オプション）',
+            placeholderFolder: '例：daily, projects',
+            folderHint: '空のままならルートフォルダーに作成',
+            labelTags: 'タグ（カンマ区切り）',
+            placeholderTags: '例：todo, important',
+            labelContent: 'コンテンツ *',
+            placeholderContent: 'Markdown で内容を書きます...',
+            contentHint: 'Markdown 構文対応：**太字**，*イタリック*，`コード`，[[wiki リンク]] など',
+            btnCreate: '✨ ページを作成',
+            btnCancel: 'キャンセル',
+            markdownTips: '📝 Markdown のヒント',
+            fillRequired: '必須項目（タイトルとコンテンツ）を入力してください',
+            toCreatePage: 'このページを作成するには:'
         }
     },
 
@@ -405,6 +531,59 @@ const WikiApp = {
             }
         });
 
+        // Translate New Page form elements
+        const newPageHeader = document.querySelector('.new-page-header h1');
+        if (newPageHeader) {
+            newPageHeader.textContent = t.createNewPage;
+        }
+        
+        const newPageDesc = document.querySelector('.new-page-header p');
+        if (newPageDesc) {
+            newPageDesc.textContent = t.createPageDesc;
+        }
+        
+        // Translate form labels and placeholders
+        const labelTitle = document.querySelector('label[for="title"]');
+        if (labelTitle) labelTitle.textContent = t.labelTitle;
+        
+        const inputTitle = document.getElementById('title');
+        if (inputTitle) inputTitle.placeholder = t.placeholderTitle;
+        
+        const labelFolder = document.querySelector('label[for="folder"]');
+        if (labelFolder) labelFolder.textContent = t.labelFolder;
+        
+        const inputFolder = document.getElementById('folder');
+        if (inputFolder) inputFolder.placeholder = t.placeholderFolder;
+        
+        const folderHint = document.querySelector('label[for="folder"] + small');
+        if (folderHint) folderHint.textContent = t.folderHint;
+        
+        const labelTags = document.querySelector('label[for="tags"]');
+        if (labelTags) labelTags.textContent = t.labelTags;
+        
+        const inputTags = document.getElementById('tags');
+        if (inputTags) inputTags.placeholder = t.placeholderTags;
+        
+        const labelContent = document.querySelector('label[for="content"]');
+        if (labelContent) labelContent.textContent = t.labelContent;
+        
+        const textareaContent = document.getElementById('content');
+        if (textareaContent) textareaContent.placeholder = t.placeholderContent;
+        
+        const contentHint = document.querySelector('label[for="content"] + small');
+        if (contentHint) contentHint.textContent = t.contentHint;
+        
+        // Translate buttons
+        const btnCreate = document.querySelector('.btn-primary');
+        if (btnCreate && btnCreate.type === 'submit') btnCreate.textContent = t.btnCreate;
+        
+        const btnCancel = document.querySelector('.btn-secondary');
+        if (btnCancel) btnCancel.textContent = t.btnCancel;
+        
+        // Translate help section
+        const helpSection = document.querySelector('.help-section h3');
+        if (helpSection) helpSection.textContent = t.markdownTips;
+        
         // Update language button
         this.updateLanguageSelectorUI();
     },
@@ -474,6 +653,57 @@ const WikiApp = {
                 window.location.href = 'index.html';
             }
         }
+    },
+    
+    // Handle create page form submission with translations
+    handleCreate(event) {
+        event.preventDefault();
+        const t = this.translations[this.currentLang];
+        
+        const title = document.getElementById('title').value.trim();
+        const folder = document.getElementById('folder').value.trim();
+        const tagsInput = document.getElementById('tags').value.trim();
+        const content = document.getElementById('content').value.trim();
+        
+        if (!title || !content) {
+            alert(t.fillRequired);
+            return;
+        }
+        
+        // Parse tags
+        const tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
+        
+        // Generate slug from title
+        const slug = title.toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)+/g, '');
+        
+        // Build file path
+        const filePath = folder ? `${folder}/${slug}.md` : `${slug}.md`;
+        
+        // Build frontmatter
+        const today = new Date().toISOString().split('T')[0];
+        let frontmatter = `---\ntitle: ${title}\ncreated: ${today}\n`;
+        
+        if (tags.length > 0) {
+            frontmatter += `tags: [${tags.map(tag => tag).join(', ')}]\n`;
+        }
+        
+        frontmatter += `---\n\n`;
+        
+        // Full markdown content
+        const markdownContent = frontmatter + content;
+        
+        // Show instructions with translated message
+        alert(`${t.toCreatePage}\n\n1. ${t.createPageDesc}\n2. ${t.labelContent}: "${filePath}"\n\n${markdownContent.substring(0, 500)}...\n\nNote: Browser-based file creation requires server-side support.`);
+        
+        console.log('Page data:', {
+            title,
+            slug,
+            folder,
+            tags,
+            content: markdownContent
+        });
     }
 };
 

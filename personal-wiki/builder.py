@@ -266,11 +266,19 @@ class WikiBuilder:
         # Build navigation data
         nav_items = self._build_nav_data()
         
+        # Calculate relative path to static files based on folder depth
+        static_prefix = ""
+        if page.folder_path:
+            # Count folder depth and add ../ for each level
+            depth = len(page.folder_path.split("/"))
+            static_prefix = "../" * depth
+        
         return template.render(
             page=page,
             all_pages=all_pages,
             nav_items=nav_items,
-            folder_tree=self.folder_tree
+            folder_tree=self.folder_tree,
+            static_prefix=static_prefix
         )
     
     def render_index(self, all_pages: List[WikiPage]) -> str:
