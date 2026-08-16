@@ -39,6 +39,8 @@ const WikiApp = {
             // New Page specific
             createNewPage: 'Create New Page',
             createPageDesc: 'Create a new wiki page with Markdown formatting',
+            editPageTitle: '✏️ Edit Page',
+            editPageDesc: 'Edit "{page}" with Markdown formatting',
             labelTitle: 'Page Title *',
             placeholderTitle: 'Enter page title...',
             labelFolder: 'Folder (optional)',
@@ -1227,38 +1229,20 @@ const WikiApp = {
             const scrollPercent = (scrollTop / docHeight) * 100;
             fill.style.width = `${scrollPercent}%`;
         });
-    }
-};
-
-// Initialize on DOM ready
-document.addEventListener('DOMContentLoaded', function() {
-    WikiApp.init();
-});
-
+    },
+    
     // Translate Edit Page
     translateEditPage() {
         const t = this.translations[this.currentLang];
         
-        // Translate header
-        const editHeader = document.querySelector('.edit-page-header h1');
-        if (editHeader) editHeader.textContent = '✏️ ' + (this.currentLang === 'ru' ? 'Редактировать страницу' : 
-                                                           this.currentLang === 'es' ? 'Editar página' :
-                                                           this.currentLang === 'de' ? 'Seite bearbeiten' :
-                                                           this.currentLang === 'fr' ? 'Modifier la page' :
-                                                           this.currentLang === 'zh' ? '编辑页面' :
-                                                           this.currentLang === 'ja' ? 'ページを編集' :
-                                                           'Edit Page');
+        // Translate header using data-translate attribute
+        const editHeader = document.querySelector('[data-translate="editPageTitle"]');
+        if (editHeader) editHeader.textContent = t.editPageTitle;
         
-        const editDesc = document.querySelector('.edit-page-header p');
+        const editDesc = document.querySelector('[data-translate="editPageDesc"]');
         if (editDesc) {
             const pageTitle = editDesc.textContent.match(/"(.+)"/)?.[1] || '';
-            editDesc.textContent = (this.currentLang === 'ru' ? `Редактирование "${pageTitle}" с форматированием Markdown` :
-                                    this.currentLang === 'es' ? `Editar "${pageTitle}" con formato Markdown` :
-                                    this.currentLang === 'de' ? `"${pageTitle}" mit Markdown-Formatierung bearbeiten` :
-                                    this.currentLang === 'fr' ? `Modifier "${pageTitle}" avec le formatage Markdown` :
-                                    this.currentLang === 'zh' ? `使用 Markdown 格式编辑"${pageTitle}"` :
-                                    this.currentLang === 'ja' ? `Markdown 形式で"${pageTitle}"を編集` :
-                                    `Edit "${pageTitle}" with Markdown formatting`);
+            editDesc.textContent = t.editPageDesc.replace('{page}', pageTitle);
         }
         
         // Translate form labels and placeholders using data-translate attributes
@@ -1291,14 +1275,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const t = this.translations[this.currentLang];
         
         // Translate header
-        const graphHeader = document.querySelector('.graph-header h2');
+        const graphHeader = document.querySelector('[data-translate="graphViewTitle"]');
         if (graphHeader) graphHeader.textContent = t.graphViewTitle;
         
         // Translate sidebar
-        const sidebarTitle = document.querySelector('.graph-sidebar h3');
+        const sidebarTitle = document.querySelector('[data-translate="graphInfo"]');
         if (sidebarTitle) sidebarTitle.textContent = t.graphInfo;
         
-        const sidebarDesc = document.querySelector('.graph-sidebar p');
+        const sidebarDesc = document.querySelector('[data-translate="clickNode"]');
         if (sidebarDesc) sidebarDesc.textContent = t.clickNode;
         
         // Translate stats
@@ -1317,3 +1301,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (resetZoom) resetZoom.title = t.resetZoom;
     }
 };
+
+// Initialize on DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    WikiApp.init();
+});

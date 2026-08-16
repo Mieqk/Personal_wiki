@@ -258,8 +258,8 @@
             
 <div class="edit-page-container">
     <header class="edit-page-header">
-        <h1>✏️ Edit Page</h1>
-        <p>Edit "Welcome to Personal Wiki" with Markdown formatting</p>
+        <h1 data-translate="editPageTitle">✏️ Edit Page</h1>
+        <p data-translate="editPageDesc">Edit "Welcome to Personal Wiki" with Markdown formatting</p>
     </header>
     
     <form id="editPageForm" class="edit-page-form" onsubmit="WikiApp.handleEdit(event)">
@@ -371,6 +371,12 @@ Happy note-taking! 📝
 
 <script>
     // Form handler is now in WikiApp.handleEdit()
+    // Translate edit page on load
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof WikiApp !== 'undefined') {
+            WikiApp.translateEditPage();
+        }
+    });
 </script>
 
         </main>

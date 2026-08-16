@@ -63,14 +63,14 @@
             
             <nav class="sidebar-nav">
                 <div class="nav-section main-nav">
-                    <a href="{{ static_prefix|default('') }}index.html" class="nav-link {{ 'active' if current_page == 'index' else '' }}">🏠 Home</a>
-                    <a href="{{ static_prefix|default('') }}graph.html" class="nav-link {{ 'active' if current_page == 'graph' else '' }}">🕸️ Graph</a>
-                    <a href="{{ static_prefix|default('') }}search.html" class="nav-link {{ 'active' if current_page == 'search' else '' }}">🔍 Search</a>
-                    <a href="{{ static_prefix|default('') }}new.html" class="nav-link {{ 'active' if current_page == 'new' else '' }}">➕ New Page</a>
+                    <a href="{{ static_prefix|default('') }}index.html" class="nav-link {{ 'active' if current_page == 'index' else '' }}" data-translate="home">🏠 Home</a>
+                    <a href="{{ static_prefix|default('') }}graph.html" class="nav-link {{ 'active' if current_page == 'graph' else '' }}" data-translate="graph">🕸️ Graph</a>
+                    <a href="{{ static_prefix|default('') }}search.html" class="nav-link {{ 'active' if current_page == 'search' else '' }}" data-translate="search">🔍 Search</a>
+                    <a href="{{ static_prefix|default('') }}new.html" class="nav-link {{ 'active' if current_page == 'new' else '' }}" data-translate="newPage">➕ New Page</a>
                 </div>
                 
                 <div class="nav-section">
-                    <h3>Pages</h3>
+                    <h3 data-translate="pages">Pages</h3>
                     <ul class="page-list">
                         {% for item in nav_items %}
                         <li class="page-item {% if page and page.slug == item.slug %}active{% endif %}">
@@ -81,7 +81,7 @@
                 </div>
                 
                 <div class="nav-section">
-                    <h3>Folders</h3>
+                    <h3 data-translate="folders">Folders</h3>
                     <ul class="folder-tree">
                         {{ folder_tree_html | safe }}
                     </ul>

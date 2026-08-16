@@ -1,1 +1,33 @@
-Nothing should be ignored since the changes only include HTML template files which are source code files.
+```
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build outputs
+output/
+dist/
+build/
+*.js
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+```
