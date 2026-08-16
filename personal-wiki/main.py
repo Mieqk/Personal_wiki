@@ -10,6 +10,19 @@ from builder import WikiBuilder
 from frontmatter import parse_frontmatter
 
 
+def safe_join(base: Path, user_path: str) -> Path:
+    """Safely join user-provided path to base, preventing traversal."""
+    if not user_path:
+        return base
+    # Reject paths starting with / or containing ..
+    if user_path.startswith('/') or '..' in user_path:
+        raise ValueError("Path traversal detected")
+    target = (base / user_path).resolve()
+    if not target.is_relative_to(base.resolve()):
+        raise ValueError("Path traversal detected")
+    return target
+
+
 def cmd_build(args: argparse.Namespace) -> int:
     """Handle the build command."""
     source = Path(args.source).resolve()
@@ -29,9 +42,11 @@ def cmd_serve(args: argparse.Namespace) -> int:
     from flask import Flask, send_from_directory, abort, redirect, url_for
     import webbrowser
     import threading
+    import time
     
     source = Path(args.source).resolve()
     port = int(args.port)
+    watch = getattr(args, 'watch', False)
     
     if not source.exists():
         print(f"Error: Source directory '{source}' does not exist.")
@@ -83,6 +98,12 @@ def cmd_serve(args: argparse.Namespace) -> int:
         if not title or not content:
             return jsonify({'error': 'Title and content are required'}), 400
         
+        # Validate folder path
+        try:
+            safe_folder = safe_join(source, folder) if folder else source
+        except ValueError:
+            return jsonify({'error': 'Invalid path'}), 400
+        
         # Parse tags
         tags = []
         if tags_input:
@@ -97,7 +118,7 @@ def cmd_serve(args: argparse.Namespace) -> int:
         # Build file path
         notes_dir = source
         if folder:
-            folder_path = notes_dir / folder
+            folder_path = safe_folder
             folder_path.mkdir(parents=True, exist_ok=True)
             file_path = folder_path / f"{slug}.md"
         else:
@@ -155,6 +176,14 @@ created: {today}
         if not original_slug or not title or not content:
             return jsonify({'error': 'Original slug, title and content are required'}), 400
         
+        # Validate original_slug and folder paths
+        if original_slug.startswith('/') or '..' in original_slug:
+            return jsonify({'error': 'Invalid path'}), 400
+        try:
+            safe_folder = safe_join(source, folder) if folder else source
+        except ValueError:
+            return jsonify({'error': 'Invalid path'}), 400
+        
         # Parse tags
         tags = []
         if tags_input:
@@ -181,7 +210,7 @@ created: {today}
         
         # Determine new file path
         if folder:
-            folder_path = notes_dir / folder
+            folder_path = safe_folder
             folder_path.mkdir(parents=True, exist_ok=True)
             new_file_path = folder_path / f"{new_slug}.md"
         else:
@@ -243,6 +272,10 @@ created: {original_created}
         if not slug:
             return jsonify({'error': 'Slug is required'}), 400
         
+        # Validate slug
+        if slug.startswith('/') or '..' in slug:
+            return jsonify({'error': 'Invalid path'}), 400
+        
         # Find the file to delete
         file_path = source / f"{slug}.md"
         
@@ -276,24 +309,23 @@ created: {original_created}
         if path.endswith('.html'):
             try:
                 return send_from_directory(app.static_folder, path)
-            except:
+            except Exception:
                 abort(404)
         
         # Try to find the .html file
         try:
             return send_from_directory(app.static_folder, path + '.html')
-        except:
+        except Exception:
             pass
         
         # Try in subdirectories
         try:
             return send_from_directory(app.static_folder, path)
-        except:
+        except Exception:
             abort(404)
     
     # Open browser after a short delay
     def open_browser():
-        import time
         time.sleep(1.5)
         webbrowser.open(f'http://localhost:{port}')
     
@@ -302,10 +334,50 @@ created: {original_created}
     
     threading.Thread(target=open_browser, daemon=True).start()
     
+    if watch:
+        try:
+            from watchdog.observers import Observer
+            from watchdog.events import FileSystemEventHandler
+            
+            class RebuildHandler(FileSystemEventHandler):
+                def __init__(self, source_dir: Path, output_dir: Path):
+                    self.source_dir = source_dir
+                    self.output_dir = output_dir
+                    self._rebuild_timer = None
+                
+                def on_modified(self, event):
+                    if event.is_directory or not event.src_path.endswith('.md'):
+                        return
+                    
+                    # Debounce rebuilds
+                    if self._rebuild_timer is not None:
+                        self._rebuild_timer.cancel()
+                    
+                    def do_rebuild():
+                        print("\nDetected changes, rebuilding...")
+                        builder = WikiBuilder(str(self.source_dir), str(self.output_dir))
+                        builder.build()
+                        print("Rebuild complete.")
+                        self._rebuild_timer = None
+                    
+                    self._rebuild_timer = threading.Timer(0.7, do_rebuild)
+                    self._rebuild_timer.start()
+            
+            observer = Observer()
+            handler = RebuildHandler(source, output_dir)
+            observer.schedule(handler, str(source), recursive=True)
+            observer.start()
+            print("Watch mode enabled - will rebuild on .md file changes")
+        except ImportError:
+            print("Warning: watchdog not installed. Install with: pip install watchdog")
+    
     try:
-        app.run(host='0.0.0.0', port=port, debug=False)
+        app.run(host='127.0.0.1', port=port, debug=False)
     except KeyboardInterrupt:
         print("\nServer stopped.")
+        if watch:
+            observer.stop()
+            observer.join()
     
     return 0
 
@@ -331,11 +403,6 @@ def main() -> int:
         default='output',
         help='Output directory for generated HTML (default: output)'
     )
-    build_parser.add_argument(
-        '--incremental', '-i',
-        action='store_true',
-        help='Incremental build (only rebuild changed files) - not yet implemented'
-    )
     build_parser.set_defaults(func=cmd_build)
     
     # Serve command
@@ -349,6 +416,11 @@ def main() -> int:
         '--port', '-p',
         default='8000',
         help='Port to serve on (default: 8000)'
+    )
+    serve_parser.add_argument(
+        '--watch',
+        action='store_true',
+        help='Watch source directory for changes and rebuild automatically'
     )
     serve_parser.set_defaults(func=cmd_serve)
     

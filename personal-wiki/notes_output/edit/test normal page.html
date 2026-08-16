@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✏️ Edit Test Page - Personal Wiki</title>
+    <title>✏️ Edit Test Normal Page - Personal Wiki</title>
     <link rel="stylesheet" href="static/style.css">
     
 <style>
@@ -234,11 +234,11 @@
                             <a href="project-ideas.html">Project Ideas</a>
                         </li>
                         
-                        <li class="page-item ">
+                        <li class="page-item active">
                             <a href="test normal page.html">Test Normal Page</a>
                         </li>
                         
-                        <li class="page-item active">
+                        <li class="page-item ">
                             <a href="test page.html">Test Page</a>
                         </li>
                         
@@ -263,15 +263,15 @@
 <div class="edit-page-container">
     <header class="edit-page-header">
         <h1 data-translate="editPageTitle">✏️ Edit Page</h1>
-        <p data-translate="editPageDesc">Edit "Test Page" with Markdown formatting</p>
+        <p data-translate="editPageDesc">Edit "Test Normal Page" with Markdown formatting</p>
     </header>
     
     <form id="editPageForm" class="edit-page-form" onsubmit="WikiApp.handleEdit(event)">
-        <input type="hidden" id="originalSlug" name="originalSlug" value="test page">
+        <input type="hidden" id="originalSlug" name="originalSlug" value="test normal page">
         
         <div class="form-group">
             <label for="title" data-translate="labelTitle">Page Title *</label>
-            <input type="text" id="title" name="title" required value="Test Page" data-translate-placeholder="placeholderTitle" placeholder="Enter page title...">
+            <input type="text" id="title" name="title" required value="Test Normal Page" data-translate-placeholder="placeholderTitle" placeholder="Enter page title...">
         </div>
         
         <div class="form-row">
@@ -283,19 +283,19 @@
             
             <div class="form-group">
                 <label for="tags" data-translate="labelTags">Tags (comma-separated)</label>
-                <input type="text" id="tags" name="tags" value="test, demo" data-translate-placeholder="placeholderTags" placeholder="e.g., todo, important">
+                <input type="text" id="tags" name="tags" value="test" data-translate-placeholder="placeholderTags" placeholder="e.g., todo, important">
             </div>
         </div>
         
         <div class="form-group">
             <label for="content" data-translate="labelContent">Content *</label>
-            <textarea id="content" name="content" required data-translate-placeholder="placeholderContent" placeholder="Write your content in Markdown...">This is a test page content.</textarea>
+            <textarea id="content" name="content" required data-translate-placeholder="placeholderContent" placeholder="Write your content in Markdown...">This is test content</textarea>
             <small data-translate="contentHint">Supports Markdown syntax: **bold**, *italic*, `code`, [[wiki links]], etc.</small>
         </div>
         
         <div class="form-actions">
             <button type="submit" class="btn btn-primary" data-translate="btnSave">💾 Save Changes</button>
-            <button type="button" class="btn btn-secondary" data-translate="btnCancel" onclick="window.location.href='test page.html'">Cancel</button>
+            <button type="button" class="btn btn-secondary" data-translate="btnCancel" onclick="window.location.href='test normal page.html'">Cancel</button>
         </div>
     </form>
     

@@ -1,33 +1,31 @@
 ```
-# Python
-__pycache__/
+# Compiled Python files
 *.pyc
-*.pyo
-*.pyd
+__pycache__/
 
-# Build outputs
-output/
-dist/
-build/
-*.js
-
-# Environment
+# Virtual environments
+venv/
+.venv/
 .env
 .env.local
 *.env.*
 
-# Editors
-.vscode/
-.idea/
-
 # Logs
 *.log
 
-# Temporary files
-*.tmp
-*.swp
+# Coverage reports
+.coverage
+coverage/
+htmlcov/
 
-# OS
-.DS_Store
-Thumbs.db
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+
+# Build/dist folders
+build/
+dist/
 ```

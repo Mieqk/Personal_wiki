@@ -316,14 +316,14 @@
             
             <nav class="sidebar-nav">
                 <div class="nav-section main-nav">
-                    <a href="index.html" class="nav-link ">🏠 Home</a>
-                    <a href="graph.html" class="nav-link ">🕸️ Graph</a>
-                    <a href="search.html" class="nav-link active">🔍 Search</a>
-                    <a href="new.html" class="nav-link ">➕ New Page</a>
+                    <a href="index.html" class="nav-link " data-translate="home">🏠 Home</a>
+                    <a href="graph.html" class="nav-link " data-translate="graph">🕸️ Graph</a>
+                    <a href="search.html" class="nav-link active" data-translate="search">🔍 Search</a>
+                    <a href="new.html" class="nav-link " data-translate="newPage">➕ New Page</a>
                 </div>
                 
                 <div class="nav-section">
-                    <h3>Pages</h3>
+                    <h3 data-translate="pages">Pages</h3>
                     <ul class="page-list">
                         
                         <li class="page-item ">
@@ -346,7 +346,7 @@
                 </div>
                 
                 <div class="nav-section">
-                    <h3>Folders</h3>
+                    <h3 data-translate="folders">Folders</h3>
                     <ul class="folder-tree">
                         
                     </ul>
@@ -360,13 +360,13 @@
     <header class="search-header">
         <div class="search-input-wrapper">
             <span class="search-input-icon">🔍</span>
-            <input type="text" id="searchInput" class="search-input" placeholder="Search pages...">
+            <input type="text" id="searchInput" class="search-input" data-translate-placeholder="searchPlaceholder" placeholder="Search pages...">
         </div>
     </header>
     
     <div class="search-results-container">
         <div class="results-header">
-            <h2>Search Results</h2>
+            <h2 data-translate="searchResults">Search Results</h2>
             <span id="resultsCount" class="results-count">0 found</span>
         </div>
         <div id="resultsList" class="results-list">
@@ -377,7 +377,7 @@
 
 <script>
     // Search data from template
-    const searchData = [{'slug': 'daily/2026-08-16', 'title': 'Daily Note 2026-08-16', 'content': "Daily Note - August 16, 2026\nToday's Focus\n\nComplete the Personal Wiki setup\nTest wiki links between pages\nWrite documentation\n\nNotes\nWorked on building the index page and linked it to Project Ideas.\nTasks Completed\n\n[x] Set up project structure\n[x] Create builder module\n[x] Add Markdown parsing\n[x] Implement wiki links\n[ ] Write tests\n\nReflections\nThe wiki is coming along nicely. Need to add search functionality next.\nSee also: Nonexistent Page - this should show as a broken link.", 'tags': ['daily', 'journal']}, {'slug': 'index', 'title': 'Welcome to Personal Wiki', 'content': 'Welcome to Your Personal Wiki! 🎉\nThis is your new local knowledge base built with Python and Markdown.\nFeatures\n\n✅ Markdown support - Write in familiar Markdown syntax\n🔗 Wiki links - Use Page Name to link between notes\n🏷️ Tags - Organize content with YAML frontmatter tags\n📁 Folder navigation - Automatic navigation from folder structure\n🌐 Static site generation - Fast, offline-first wiki\n\nGetting Started\n\nAdd your Markdown files to the notes/ folder\nRun python main.py build --source notes/ --outp', 'tags': ['welcome', 'getting-started']}, {'slug': 'project-ideas', 'title': 'Project Ideas', 'content': "Project Ideas 💡\nA collection of project ideas and brainstorming.\nWeb Projects\n\nPersonal wiki (this one!)\nTask manager with Pomodoro timer\nRecipe organizer with meal planning\n\nLearning Goals\n\nMachine Learning Basics - Want to learn more about ML\nWeb Development Notes - Collect web dev resources\nBuild a mobile app\n\nResources\nCheck out the index for getting started.\nNotes\n\nRemember: The best project is one you'll actually finish!\n\n\n[x] Set up wiki\n[ ] Add more ideas\n[ ] Start first project\n", 'tags': ['projects', 'ideas']}, {'slug': 'test page', 'title': 'Test Page', 'content': 'This is a test page content.', 'tags': ['test', 'demo']}];
+    const searchData = [{'slug': 'daily/2026-08-16', 'title': 'Daily Note 2026-08-16', 'content': "Daily Note - August 16, 2026\nToday's Focus\n\nComplete the Personal Wiki setup\nTest wiki links between pages\nWrite documentation\n\nNotes\nWorked on building the index page and linked it to Project Ideas.\nTasks Completed\n\n[x] Set up project structure\n[x] Create builder module\n[x] Add Markdown parsing\n[x] Implement wiki links\n[ ] Write tests\n\nReflections\nThe wiki is coming along nicely. Need to add search functionality next.\nSee also: Nonexistent Page - this should show as a broken link.", 'tags': ['daily', 'journal']}, {'slug': 'index', 'title': 'Welcome to Personal Wiki', 'content': "Welcome to Your Personal Wiki! 🎉\nThis is your new local knowledge base built with Python and Markdown.\nFeatures\n\n✅ Markdown support - Write in familiar Markdown syntax\n🔗 Wiki links - Use Page Name to link between notes\n🏷️ Tags - Organize content with YAML frontmatter tags\n📁 Folder navigation - Automatic navigation from folder structure\n🌐 Static site generation - Fast, offline-first wiki\n\nGetting Started\n\nAdd your Markdown files to the notes/ folder\nRun python main.py build --source notes/ --output output/\nOpen output/index.html in your browser\n\nOr use the serve command:\npython main.py serve --source notes/ --port 8000\n\nWiki Links\nTry linking to other pages like Project Ideas or Daily Note 2026-08-16.\nIf a page doesn't exist yet, the link will be marked as broken (like Nonexistent Page).\nCode Example\nHere's a Python code block:\ndef hello_world():\n    print(&quot;Hello from Personal Wiki!&quot;)\n\nhello_world()\n\nTables\n\n\n\nFeature\nStatus\nPriority\n\n\n\n\nMarkdown parsing\n✅ Done\nHigh\n\n\nWiki links\n✅ Done\nHigh\n\n\nSearch\n🔜 Coming\nMedium\n\n\nGraph view\n🔜 Coming\nMedium\n\n\n\nCheckboxes\n\n[x] Create wiki builder\n[x] Add Markdown parsing\n[ ] Implement search\n[ ] Add graph visualization\n\n\nHappy note-taking! 📝", 'tags': ['welcome', 'getting-started']}, {'slug': 'project-ideas', 'title': 'Project Ideas', 'content': "Project Ideas 💡\nA collection of project ideas and brainstorming.\nWeb Projects\n\nPersonal wiki (this one!)\nTask manager with Pomodoro timer\nRecipe organizer with meal planning\n\nLearning Goals\n\nMachine Learning Basics - Want to learn more about ML\nWeb Development Notes - Collect web dev resources\nBuild a mobile app\n\nResources\nCheck out the index for getting started.\nNotes\n\nRemember: The best project is one you'll actually finish!\n\n\n[x] Set up wiki\n[ ] Add more ideas\n[ ] Start first project\n", 'tags': ['projects', 'ideas']}, {'slug': 'test page', 'title': 'Test Page', 'content': 'This is a test page content.', 'tags': ['test', 'demo']}];
     
     const searchInput = document.getElementById('searchInput');
     const resultsList = document.getElementById('resultsList');
@@ -393,7 +393,7 @@
         const normalizedQuery = query.toLowerCase().trim();
         
         if (normalizedQuery.length === 0) {
-            resultsList.innerHTML = '<p class="no-results">Enter a search query to find pages</p>';
+            resultsList.innerHTML = '<p class="no-results" data-translate="enterQuery">Enter a search query to find pages</p>';
             resultsCount.textContent = '0 found';
             return;
         }
@@ -407,7 +407,7 @@
         resultsCount.textContent = `${results.length} found`;
         
         if (results.length === 0) {
-            resultsList.innerHTML = '<p class="no-results">No results found</p>';
+            resultsList.innerHTML = '<p class="no-results" data-translate="noResults">No results found</p>';
             return;
         }
         

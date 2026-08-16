@@ -396,12 +396,11 @@ class WikiBuilder:
         search_data = []
         for page in all_pages:
             # Strip HTML tags from content for search
-            import re
             clean_content = re.sub(r'<[^>]+>', '', page.content_html)
             search_data.append({
                 'slug': page.slug,
                 'title': page.title,
-                'content': clean_content[:500],  # Limit content length
+                'content': clean_content,  # Full content for search
                 'tags': page.tags
             })
         
