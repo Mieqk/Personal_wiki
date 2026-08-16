@@ -447,11 +447,8 @@ class WikiBuilder:
         template = self.jinja_env.get_template("edit.html")
         nav_items = self._build_nav_data()
         
-        # Calculate relative path to static files based on folder depth
+        # Edit pages are always in the root "edit/" folder, so static_prefix is empty
         static_prefix = ""
-        if page.folder_path:
-            depth = len(page.folder_path.split("/"))
-            static_prefix = "../" * depth
         
         return template.render(
             page=page,

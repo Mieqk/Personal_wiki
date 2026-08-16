@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>✏️ Edit Daily Note 2026-08-16 - Personal Wiki</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="static/style.css">
     
 <style>
     .edit-page-container {
@@ -164,7 +164,7 @@
     <div class="container">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h1><a href="../index.html">📚 Personal Wiki</a></h1>
+                <h1><a href="index.html">📚 Personal Wiki</a></h1>
                 <div class="header-controls">
                     <!-- Theme Selector -->
                     <div class="theme-selector">
@@ -216,10 +216,10 @@
             
             <nav class="sidebar-nav">
                 <div class="nav-section main-nav">
-                    <a href="../index.html" class="nav-link ">🏠 Home</a>
-                    <a href="../graph.html" class="nav-link ">🕸️ Graph</a>
-                    <a href="../search.html" class="nav-link ">🔍 Search</a>
-                    <a href="../new.html" class="nav-link ">➕ New Page</a>
+                    <a href="index.html" class="nav-link ">🏠 Home</a>
+                    <a href="graph.html" class="nav-link ">🕸️ Graph</a>
+                    <a href="search.html" class="nav-link ">🔍 Search</a>
+                    <a href="new.html" class="nav-link ">➕ New Page</a>
                 </div>
                 
                 <div class="nav-section">
@@ -227,19 +227,19 @@
                     <ul class="page-list">
                         
                         <li class="page-item active">
-                            <a href="../daily/2026-08-16.html">Daily Note 2026-08-16</a>
+                            <a href="daily/2026-08-16.html">Daily Note 2026-08-16</a>
                         </li>
                         
                         <li class="page-item ">
-                            <a href="../project-ideas.html">Project Ideas</a>
+                            <a href="project-ideas.html">Project Ideas</a>
                         </li>
                         
                         <li class="page-item ">
-                            <a href="../test page.html">Test Page</a>
+                            <a href="test page.html">Test Page</a>
                         </li>
                         
                         <li class="page-item ">
-                            <a href="../index.html">Welcome to Personal Wiki</a>
+                            <a href="index.html">Welcome to Personal Wiki</a>
                         </li>
                         
                     </ul>
@@ -258,8 +258,8 @@
             
 <div class="edit-page-container">
     <header class="edit-page-header">
-        <h1>✏️ Edit Page</h1>
-        <p>Edit "Daily Note 2026-08-16" with Markdown formatting</p>
+        <h1 data-translate="editPageTitle">✏️ Edit Page</h1>
+        <p data-translate="editPageDesc">Edit "Daily Note 2026-08-16" with Markdown formatting</p>
     </header>
     
     <form id="editPageForm" class="edit-page-form" onsubmit="WikiApp.handleEdit(event)">
@@ -336,12 +336,18 @@ See also: [[Nonexistent Page]] - this should show as a broken link.
 
 <script>
     // Form handler is now in WikiApp.handleEdit()
+    // Translate edit page on load
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof WikiApp !== 'undefined') {
+            WikiApp.translateEditPage();
+        }
+    });
 </script>
 
         </main>
     </div>
     
-    <script src="../static/app.js"></script>
+    <script src="static/app.js"></script>
     
 </body>
 </html>
