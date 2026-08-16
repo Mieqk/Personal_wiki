@@ -220,25 +220,25 @@
 {% block content %}
 <div class="graph-page-container">
     <header class="graph-header">
-        <h2>🕸️ Graph View</h2>
+        <h2 data-translate="graphViewTitle">🕸️ Graph View</h2>
         <div class="graph-controls">
-            <button id="zoomIn" class="control-btn" title="Zoom In">+</button>
-            <button id="zoomOut" class="control-btn" title="Zoom Out">−</button>
-            <button id="resetZoom" class="control-btn" title="Reset">⟲</button>
+            <button id="zoomIn" class="control-btn" data-translate="zoomIn" title="Zoom In">+</button>
+            <button id="zoomOut" class="control-btn" data-translate="zoomOut" title="Zoom Out">−</button>
+            <button id="resetZoom" class="control-btn" data-translate="resetZoom" title="Reset">⟲</button>
         </div>
     </header>
     
     <div class="graph-main">
         <div id="graphContainer" class="graph-container"></div>
         <div class="graph-sidebar">
-            <h3>Graph Info</h3>
-            <p>Click on a node to navigate to the page.</p>
+            <h3 data-translate="graphInfo">Graph Info</h3>
+            <p data-translate="clickNode">Click on a node to navigate to the page.</p>
             <div class="graph-stat">
-                <span>Total Nodes:</span>
+                <span data-translate="totalNodes">Total Nodes:</span>
                 <span id="nodeCount" class="graph-stat-value">0</span>
             </div>
             <div class="graph-stat">
-                <span>Total Links:</span>
+                <span data-translate="totalLinks">Total Links:</span>
                 <span id="linkCount" class="graph-stat-value">0</span>
             </div>
         </div>
@@ -246,6 +246,13 @@
 </div>
 
 <script>
+    // Translate graph page on load
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof WikiApp !== 'undefined') {
+            WikiApp.translateGraphPage();
+        }
+    });
+    
     // Graph data from template
     const graphData = {
         nodes: {{ graph_nodes_json | safe }},

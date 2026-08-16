@@ -3,7 +3,6 @@
 {% block title %}✏️ Edit {{ page.title }} - Personal Wiki{% endblock %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{{ static_prefix|default('') }}static/style.css">
 <style>
     .edit-page-container {
         max-width: 900px;
@@ -161,8 +160,8 @@
 {% block content %}
 <div class="edit-page-container">
     <header class="edit-page-header">
-        <h1>✏️ Edit Page</h1>
-        <p>Edit "{{ page.title }}" with Markdown formatting</p>
+        <h1 data-translate="editPageTitle">✏️ Edit Page</h1>
+        <p data-translate="editPageDesc">Edit "{{ page.title }}" with Markdown formatting</p>
     </header>
     
     <form id="editPageForm" class="edit-page-form" onsubmit="WikiApp.handleEdit(event)">
@@ -214,5 +213,11 @@
 
 <script>
     // Form handler is now in WikiApp.handleEdit()
+    // Translate edit page on load
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof WikiApp !== 'undefined') {
+            WikiApp.translateEditPage();
+        }
+    });
 </script>
 {% endblock %}
