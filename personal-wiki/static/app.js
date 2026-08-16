@@ -51,9 +51,20 @@ const WikiApp = {
             contentHint: 'Supports Markdown syntax: **bold**, *italic*, `code`, [[wiki links]], etc.',
             btnCreate: '✨ Create Page',
             btnCancel: 'Cancel',
+            btnEdit: '✏️ Edit',
+            btnSave: '💾 Save Changes',
             markdownTips: '📝 Markdown Tips',
             fillRequired: 'Please fill in the required fields (Title and Content)',
-            toCreatePage: 'To create this page:'
+            toCreatePage: 'To create this page:',
+            // Graph page specific
+            graphViewTitle: '🕸️ Graph View',
+            graphInfo: 'Graph Info',
+            clickNode: 'Click on a node to navigate to the page.',
+            totalNodes: 'Total Nodes:',
+            totalLinks: 'Total Links:',
+            zoomIn: 'Zoom In',
+            zoomOut: 'Zoom Out',
+            resetZoom: 'Reset'
         },
         ru: {
             home: '🏠 Главная',
@@ -102,9 +113,20 @@ const WikiApp = {
             contentHint: 'Поддерживается синтаксис Markdown: **жирный**, *курсив*, `код`, [[wiki-ссылки]] и т.д.',
             btnCreate: '✨ Создать страницу',
             btnCancel: 'Отмена',
+            btnEdit: '✏️ Редактировать',
+            btnSave: '💾 Сохранить изменения',
             markdownTips: '📝 Советы по Markdown',
             fillRequired: 'Пожалуйста, заполните обязательные поля (Название и Содержимое)',
-            toCreatePage: 'Для создания этой страницы:'
+            toCreatePage: 'Для создания этой страницы:',
+            // Graph page specific
+            graphViewTitle: '🕸️ Вид графа',
+            graphInfo: 'Информация о графе',
+            clickNode: 'Нажмите на узел для перехода к странице.',
+            totalNodes: 'Всего узлов:',
+            totalLinks: 'Всего связей:',
+            zoomIn: 'Увеличить',
+            zoomOut: 'Уменьшить',
+            resetZoom: 'Сбросить'
         },
         es: {
             home: '🏠 Inicio',
@@ -153,9 +175,20 @@ const WikiApp = {
             contentHint: 'Soporta sintaxis Markdown: **negrita**, *cursiva*, `código`, [[enlaces wiki]], etc.',
             btnCreate: '✨ Crear página',
             btnCancel: 'Cancelar',
+            btnEdit: '✏️ Editar',
+            btnSave: '💾 Guardar cambios',
             markdownTips: '📝 Consejos de Markdown',
             fillRequired: 'Por favor complete los campos obligatorios (Título y Contenido)',
-            toCreatePage: 'Para crear esta página:'
+            toCreatePage: 'Para crear esta página:',
+            // Graph page specific
+            graphViewTitle: '🕸️ Vista de gráfico',
+            graphInfo: 'Información del gráfico',
+            clickNode: 'Haz clic en un nodo para navegar a la página.',
+            totalNodes: 'Total de nodos:',
+            totalLinks: 'Total de enlaces:',
+            zoomIn: 'Acercar',
+            zoomOut: 'Alejar',
+            resetZoom: 'Restablecer'
         },
         de: {
             home: '🏠 Startseite',
@@ -204,9 +237,20 @@ const WikiApp = {
             contentHint: 'Unterstützt Markdown-Syntax: **fett**, *kursiv*, `code`, [[Wiki-Links]], etc.',
             btnCreate: '✨ Seite erstellen',
             btnCancel: 'Abbrechen',
+            btnEdit: '✏️ Bearbeiten',
+            btnSave: '💾 Änderungen speichern',
             markdownTips: '📝 Markdown-Tipps',
             fillRequired: 'Bitte füllen Sie die erforderlichen Felder aus (Titel und Inhalt)',
-            toCreatePage: 'Um diese Seite zu erstellen:'
+            toCreatePage: 'Um diese Seite zu erstellen:',
+            // Graph page specific
+            graphViewTitle: '🕸️ Graph-Ansicht',
+            graphInfo: 'Graph-Info',
+            clickNode: 'Klicken Sie auf einen Knoten, um zur Seite zu navigieren.',
+            totalNodes: 'Gesamtknoten:',
+            totalLinks: 'Gesamtverbindungen:',
+            zoomIn: 'Vergrößern',
+            zoomOut: 'Verkleinern',
+            resetZoom: 'Zurücksetzen'
         },
         fr: {
             home: '🏠 Accueil',
@@ -255,9 +299,20 @@ const WikiApp = {
             contentHint: 'Syntaxe Markdown prise en charge : **gras**, *italique*, `code`, [[liens wiki]], etc.',
             btnCreate: '✨ Créer la page',
             btnCancel: 'Annuler',
+            btnEdit: '✏️ Modifier',
+            btnSave: '💾 Enregistrer les modifications',
             markdownTips: '📝 Astuces Markdown',
             fillRequired: 'Veuillez remplir les champs obligatoires (Titre et Contenu)',
-            toCreatePage: 'Pour créer cette page :'
+            toCreatePage: 'Pour créer cette page :',
+            // Graph page specific
+            graphViewTitle: '🕸️ Vue du graphe',
+            graphInfo: 'Infos sur le graphe',
+            clickNode: 'Cliquez sur un nœud pour naviguer vers la page.',
+            totalNodes: 'Nombre total de nœuds:',
+            totalLinks: 'Nombre total de liens:',
+            zoomIn: 'Zoom avant',
+            zoomOut: 'Zoom arrière',
+            resetZoom: 'Réinitialiser'
         },
         zh: {
             home: '🏠 首页',
@@ -306,9 +361,20 @@ const WikiApp = {
             contentHint: '支持 Markdown 语法：**粗体**，*斜体*，`代码`，[[wiki 链接]] 等',
             btnCreate: '✨ 创建页面',
             btnCancel: '取消',
+            btnEdit: '✏️ 编辑',
+            btnSave: '💾 保存更改',
             markdownTips: '📝 Markdown 提示',
             fillRequired: '请填写必填字段（标题和内容）',
-            toCreatePage: '创建此页面的步骤:'
+            toCreatePage: '创建此页面的步骤:',
+            // Graph page specific
+            graphViewTitle: '🕸️ 图谱视图',
+            graphInfo: '图谱信息',
+            clickNode: '点击节点导航到页面。',
+            totalNodes: '节点总数:',
+            totalLinks: '链接总数:',
+            zoomIn: '放大',
+            zoomOut: '缩小',
+            resetZoom: '重置'
         },
         ja: {
             home: '🏠 ホーム',
@@ -357,9 +423,20 @@ const WikiApp = {
             contentHint: 'Markdown 構文対応：**太字**，*イタリック*，`コード`，[[wiki リンク]] など',
             btnCreate: '✨ ページを作成',
             btnCancel: 'キャンセル',
+            btnEdit: '✏️ 編集',
+            btnSave: '💾 変更を保存',
             markdownTips: '📝 Markdown のヒント',
             fillRequired: '必須項目（タイトルとコンテンツ）を入力してください',
-            toCreatePage: 'このページを作成するには:'
+            toCreatePage: 'このページを作成するには:',
+            // Graph page specific
+            graphViewTitle: '🕸️ グラフ表示',
+            graphInfo: 'グラフ情報',
+            clickNode: 'ノードをクリックしてページへ移動します。',
+            totalNodes: 'ノード总数:',
+            totalLinks: 'リンク总数:',
+            zoomIn: '拡大',
+            zoomOut: '縮小',
+            resetZoom: 'リセット'
         }
     },
 
@@ -1157,3 +1234,86 @@ const WikiApp = {
 document.addEventListener('DOMContentLoaded', function() {
     WikiApp.init();
 });
+
+    // Translate Edit Page
+    translateEditPage() {
+        const t = this.translations[this.currentLang];
+        
+        // Translate header
+        const editHeader = document.querySelector('.edit-page-header h1');
+        if (editHeader) editHeader.textContent = '✏️ ' + (this.currentLang === 'ru' ? 'Редактировать страницу' : 
+                                                           this.currentLang === 'es' ? 'Editar página' :
+                                                           this.currentLang === 'de' ? 'Seite bearbeiten' :
+                                                           this.currentLang === 'fr' ? 'Modifier la page' :
+                                                           this.currentLang === 'zh' ? '编辑页面' :
+                                                           this.currentLang === 'ja' ? 'ページを編集' :
+                                                           'Edit Page');
+        
+        const editDesc = document.querySelector('.edit-page-header p');
+        if (editDesc) {
+            const pageTitle = editDesc.textContent.match(/"(.+)"/)?.[1] || '';
+            editDesc.textContent = (this.currentLang === 'ru' ? `Редактирование "${pageTitle}" с форматированием Markdown` :
+                                    this.currentLang === 'es' ? `Editar "${pageTitle}" con formato Markdown` :
+                                    this.currentLang === 'de' ? `"${pageTitle}" mit Markdown-Formatierung bearbeiten` :
+                                    this.currentLang === 'fr' ? `Modifier "${pageTitle}" avec le formatage Markdown` :
+                                    this.currentLang === 'zh' ? `使用 Markdown 格式编辑"${pageTitle}"` :
+                                    this.currentLang === 'ja' ? `Markdown 形式で"${pageTitle}"を編集` :
+                                    `Edit "${pageTitle}" with Markdown formatting`);
+        }
+        
+        // Translate form labels and placeholders using data-translate attributes
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            const key = el.getAttribute('data-translate');
+            if (t[key]) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = t[key];
+                } else {
+                    el.textContent = t[key];
+                }
+            }
+        });
+        
+        document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-translate-placeholder');
+            if (t[key]) el.placeholder = t[key];
+        });
+        
+        // Translate buttons
+        const btnSave = document.querySelector('button[type="submit"].btn-primary');
+        if (btnSave) btnSave.textContent = t.btnSave;
+        
+        const btnCancel = document.querySelector('button.btn-secondary');
+        if (btnCancel) btnCancel.textContent = t.btnCancel;
+    },
+    
+    // Translate Graph Page
+    translateGraphPage() {
+        const t = this.translations[this.currentLang];
+        
+        // Translate header
+        const graphHeader = document.querySelector('.graph-header h2');
+        if (graphHeader) graphHeader.textContent = t.graphViewTitle;
+        
+        // Translate sidebar
+        const sidebarTitle = document.querySelector('.graph-sidebar h3');
+        if (sidebarTitle) sidebarTitle.textContent = t.graphInfo;
+        
+        const sidebarDesc = document.querySelector('.graph-sidebar p');
+        if (sidebarDesc) sidebarDesc.textContent = t.clickNode;
+        
+        // Translate stats
+        const statLabels = document.querySelectorAll('.graph-stat span:first-child');
+        if (statLabels[0]) statLabels[0].textContent = t.totalNodes;
+        if (statLabels[1]) statLabels[1].textContent = t.totalLinks;
+        
+        // Translate zoom buttons
+        const zoomIn = document.getElementById('zoomIn');
+        if (zoomIn) zoomIn.title = t.zoomIn;
+        
+        const zoomOut = document.getElementById('zoomOut');
+        if (zoomOut) zoomOut.title = t.zoomOut;
+        
+        const resetZoom = document.getElementById('resetZoom');
+        if (resetZoom) resetZoom.title = t.resetZoom;
+    }
+};
