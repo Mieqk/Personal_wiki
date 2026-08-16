@@ -5,26 +5,33 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Build outputs
-personal-wiki/notes_output/
-personal-wiki/output/
-
-# Environment
-.env
-.env.local
-*.env.*
-
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
+# Build and distribution artifacts
+build/
+dist/
+*.egg-info/
 
 # Logs
 *.log
 
-# Dependencies
-venv/
-.venv/
-node_modules/
+# Temporary files
+*.tmp
+*.swp
+
+# Environment files
+.env
+.env.local
+*.env.*
+
+# Coverage reports
+.coverage
+coverage/
+htmlcov/
+
+# Editors
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
 ```
