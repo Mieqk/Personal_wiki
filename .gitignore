@@ -1,4 +1,3 @@
-```
 # Python
 __pycache__/
 *.pyc
@@ -7,6 +6,7 @@ __pycache__/
 
 # Build outputs
 output/
+notes_output/
 dist/
 build/
 *.js
@@ -30,4 +30,3 @@ build/
 # OS
 .DS_Store
 Thumbs.db
-```
