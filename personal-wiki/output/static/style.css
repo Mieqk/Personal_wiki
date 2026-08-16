@@ -1,8 +1,12 @@
 /* Notion-style Theme for Personal Wiki 
    Clean, minimal, productivity-focused design
+   Multiple theme support with CSS variables
 */
 
 :root {
+    /* Theme selector - default is Light */
+    --theme-mode: light;
+    
     /* Background colors - light theme like Notion */
     --bg-primary: #ffffff;
     --bg-secondary: #f7f7f5;
@@ -36,6 +40,136 @@
     
     /* Transitions */
     --transition-smooth: all 0.2s ease;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    --theme-mode: dark;
+    
+    --bg-primary: #191919;
+    --bg-secondary: #202020;
+    --bg-tertiary: #2f2f2f;
+    
+    --accent-color: #5bc0de;
+    --accent-hover: #7ad3eb;
+    --accent-bg: rgba(91, 192, 222, 0.12);
+    
+    --text-primary: #d4d4d4;
+    --text-secondary: #a0a0a0;
+    --text-muted: #6e6e6e;
+    
+    --border-color: #3a3a3a;
+    
+    --card-bg: #1f1f1f;
+    --card-hover-bg: #2a2a2a;
+    
+    --tag-bg: rgba(91, 192, 222, 0.12);
+    
+    --code-bg: #2a2a2a;
+}
+
+/* Blue Theme */
+[data-theme="blue"] {
+    --theme-mode: blue;
+    
+    --bg-primary: #f0f4f8;
+    --bg-secondary: #e1e8ed;
+    --bg-tertiary: #d1dde5;
+    
+    --accent-color: #3b82f6;
+    --accent-hover: #2563eb;
+    --accent-bg: rgba(59, 130, 246, 0.1);
+    
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    
+    --border-color: #cbd5e1;
+    
+    --card-bg: #ffffff;
+    --card-hover-bg: #f8fafc;
+    
+    --tag-bg: rgba(59, 130, 246, 0.1);
+    
+    --code-bg: #f1f5f9;
+}
+
+/* Green Theme */
+[data-theme="green"] {
+    --theme-mode: green;
+    
+    --bg-primary: #f0fdf4;
+    --bg-secondary: #dcfce7;
+    --bg-tertiary: #bbf7d0;
+    
+    --accent-color: #22c55e;
+    --accent-hover: #16a34a;
+    --accent-bg: rgba(34, 197, 94, 0.1);
+    
+    --text-primary: #14532d;
+    --text-secondary: #166534;
+    --text-muted: #86efac;
+    
+    --border-color: #86efac;
+    
+    --card-bg: #ffffff;
+    --card-hover-bg: #f0fdf4;
+    
+    --tag-bg: rgba(34, 197, 94, 0.1);
+    
+    --code-bg: #f0fdf4;
+}
+
+/* Purple Theme */
+[data-theme="purple"] {
+    --theme-mode: purple;
+    
+    --bg-primary: #faf5ff;
+    --bg-secondary: #f3e8ff;
+    --bg-tertiary: #e9d5ff;
+    
+    --accent-color: #a855f7;
+    --accent-hover: #9333ea;
+    --accent-bg: rgba(168, 85, 247, 0.1);
+    
+    --text-primary: #581c87;
+    --text-secondary: #7e22ce;
+    --text-muted: #c084fc;
+    
+    --border-color: #e9d5ff;
+    
+    --card-bg: #ffffff;
+    --card-hover-bg: #faf5ff;
+    
+    --tag-bg: rgba(168, 85, 247, 0.1);
+    
+    --code-bg: #faf5ff;
+}
+
+/* Orange Theme */
+[data-theme="orange"] {
+    --theme-mode: orange;
+    
+    --bg-primary: #fff7ed;
+    --bg-secondary: #ffedd5;
+    --bg-tertiary: #fed7aa;
+    
+    --accent-color: #f97316;
+    --accent-hover: #ea580c;
+    --accent-bg: rgba(249, 115, 22, 0.1);
+    
+    --text-primary: #7c2d12;
+    --text-secondary: #9a3412;
+    --text-muted: #fb923c;
+    
+    --border-color: #fed7aa;
+    
+    --card-bg: #ffffff;
+    --card-hover-bg: #fff7ed;
+    
+    --tag-bg: rgba(249, 115, 22, 0.1);
+    
+    --code-bg: #fff7ed;
 }
 
 * {
@@ -116,6 +250,9 @@ a:hover {
 .sidebar-header {
     padding: 12px 12px;
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .sidebar-header h1 {
@@ -133,6 +270,156 @@ a:hover {
 
 .sidebar-header h1 a:hover {
     opacity: 0.8;
+}
+
+/* Theme selector dropdown */
+.theme-selector {
+    position: relative;
+}
+
+.theme-selector-btn {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: var(--transition-smooth);
+}
+
+.theme-selector-btn:hover {
+    background: var(--accent-bg);
+    border-color: var(--accent-color);
+}
+
+.theme-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    min-width: 180px;
+    z-index: 1000;
+    display: none;
+    margin-top: 4px;
+}
+
+.theme-dropdown.show {
+    display: block;
+}
+
+.theme-dropdown h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 8px 8px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.theme-option:hover {
+    background: var(--card-hover-bg);
+    color: var(--text-primary);
+}
+
+.theme-option.active {
+    background: var(--accent-bg);
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+.theme-preview {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+}
+
+/* Language selector */
+.lang-selector {
+    position: relative;
+    margin-left: 8px;
+}
+
+.lang-selector-btn {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+}
+
+.lang-selector-btn:hover {
+    background: var(--accent-bg);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    min-width: 120px;
+    z-index: 1000;
+    display: none;
+    margin-top: 4px;
+}
+
+.lang-dropdown.show {
+    display: block;
+}
+
+.lang-option {
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.lang-option:hover {
+    background: var(--card-hover-bg);
+    color: var(--text-primary);
+}
+
+.lang-option.active {
+    background: var(--accent-bg);
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .sidebar-nav {
@@ -421,6 +708,7 @@ a:hover {
     border-radius: 8px;
     border: 1px solid var(--border-color);
     transition: var(--transition-smooth);
+    position: relative;
 }
 
 .page-card:hover {
@@ -428,11 +716,36 @@ a:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+.page-card .delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0;
+    transition: all 0.2s ease;
+    padding: 4px;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.page-card:hover .delete-btn {
+    opacity: 0.6;
+}
+
+.page-card .delete-btn:hover {
+    opacity: 1;
+    background: rgba(239, 68, 68, 0.1);
+}
+
 .page-card h3 {
     margin-bottom: 8px;
     font-size: 16px;
     font-weight: 600;
     color: var(--text-primary);
+    padding-right: 32px;
 }
 
 .page-card h3 a {

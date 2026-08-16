@@ -5,13 +5,22 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Build and distribution artifacts
-build/
-dist/
-*.egg-info/
+# Build artifacts
+personal-wiki/output/
 
 # Logs
 *.log
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # Dependencies
 venv/
@@ -23,7 +32,11 @@ node_modules/
 coverage/
 htmlcov/
 
-# OS
+# Temporary files
+*.tmp
+*.temp
+
+# OS specific
 .DS_Store
 Thumbs.db
 ```
