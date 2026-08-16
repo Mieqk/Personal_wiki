@@ -1,58 +1,50 @@
 ```
-# Build artifacts
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build outputs
+notes_output/
 dist/
 build/
-*.css.map
+*.o
+*.obj
+*.so
+*.a
+*.dll
+*.exe
 
 # Dependencies
+.venv/
+venv/
+env/
 node_modules/
 
-# Editors
-.vscode/
-.idea/
-
-# Logs
+# Logs and temp files
 *.log
+*.tmp
+*.swp
+*.swo
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage
 .coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-.git/
-.mypy_cache/
-.pytest_cache/
-.hypothesis/
+coverage/
+htmlcov/
 
-# Compression
-*.zip
-*.tar.gz
-*.tar.bz2
-*.tar.xz
-*.gz
-*.rar
-*.7z
-
-# OS generated
+# OS
 .DS_Store
 Thumbs.db
 ```
