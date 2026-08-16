@@ -2,6 +2,7 @@
 Frontmatter module for parsing YAML frontmatter from Markdown files.
 """
 
+import os
 import re
 from typing import Optional, Dict, Any
 import yaml
@@ -50,7 +51,6 @@ def get_title(frontmatter: Optional[Dict[str, Any]], filepath: str) -> str:
         return str(frontmatter['title'])
     
     # Derive title from filename
-    import os
     filename = os.path.basename(filepath)
     name_without_ext = os.path.splitext(filename)[0]
     # Convert kebab-case or snake_case to title case
