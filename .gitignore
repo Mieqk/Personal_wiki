@@ -1,40 +1,58 @@
 ```
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
 # Build artifacts
-personal-wiki/output/
-personal-wiki/build/
+dist/
+build/
+*.css.map
+
+# Dependencies
+node_modules/
+
+# Editors
+.vscode/
+.idea/
+
+# Logs
+*.log
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Dependencies
-.venv/
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
 venv/
-pip-wheel-metadata/
-
-# Logs
-*.log
-
-# Editor
-.vscode/
-.idea/
-*.swp
-*.swo
-*.tmp
-
-# Coverage
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
 .coverage
-coverage/
-htmlcov/
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
 
-# OS
+# Compression
+*.zip
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.gz
+*.rar
+*.7z
+
+# OS generated
 .DS_Store
 Thumbs.db
 ```
