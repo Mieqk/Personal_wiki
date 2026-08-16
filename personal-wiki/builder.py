@@ -394,6 +394,26 @@ class WikiBuilder:
             current_page='search'
         )
     
+    def render_new(self, all_pages: List[WikiPage]) -> str:
+        """
+        Render the new page creation page.
+        
+        Args:
+            all_pages: List of all pages.
+            
+        Returns:
+            Rendered HTML string.
+        """
+        template = self.jinja_env.get_template("new.html")
+        nav_items = self._build_nav_data()
+        
+        return template.render(
+            all_pages=all_pages,
+            nav_items=nav_items,
+            folder_tree=self.folder_tree,
+            current_page='new'
+        )
+    
     def _build_nav_data(self) -> List[Dict[str, Any]]:
         """Build navigation data for templates."""
         nav_items = []
@@ -456,6 +476,12 @@ class WikiBuilder:
         search_path = self.output_dir / "search.html"
         search_path.write_text(search_html, encoding='utf-8')
         print(f"Generated: {search_path}")
+        
+        # Generate new page
+        new_html = self.render_new(all_pages)
+        new_path = self.output_dir / "new.html"
+        new_path.write_text(new_html, encoding='utf-8')
+        print(f"Generated: {new_path}")
         
         # Copy static files
         static_dir = Path(__file__).parent / "static"

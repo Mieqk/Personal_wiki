@@ -27,4 +27,13 @@ personal-wiki/output/
 venv/
 .venv/
 node_modules/
+
+# Coverage
+.coverage
+coverage/
+htmlcov/
+
+# OS
+.DS_Store
+Thumbs.db
 ```
