@@ -1,31 +1,5 @@
 ```
-# Compiled Python files
-*.pyc
-__pycache__/
-
-# Virtual environments
-venv/
-.venv/
-.env
-.env.local
-*.env.*
-
-# Logs
-*.log
-
-# Coverage reports
-.coverage
-coverage/
-htmlcov/
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-*.tmp
-
-# Build/dist folders
-build/
-dist/
+# Build/output directories
+personal-wiki/notes_output/
+personal-wiki/output/
 ```
