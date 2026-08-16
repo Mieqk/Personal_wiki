@@ -9,7 +9,7 @@
     </header>
     
     <section class="overview">
-        <h2 data-translate="allPages">Все страницы ({{ all_pages|length }})</h2>
+        <h2 data-translate="allPages">All Pages ({{ all_pages|length }})</h2>
         
         {% if all_pages %}
         <div class="page-grid">
@@ -30,7 +30,7 @@
             {% endfor %}
         </div>
         {% else %}
-        <p class="empty-message" data-translate="noPages">Пока нет страниц. Добавьте Markdown файлы в папку notes!</p>
+        <p class="empty-message" data-translate="noPages">No pages yet. Add some Markdown files to the notes folder!</p>
         {% endif %}
     </section>
 </div>

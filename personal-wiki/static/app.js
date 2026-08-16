@@ -36,6 +36,14 @@ const WikiApp = {
             green: '💚 Green',
             purple: '💜 Purple',
             orange: '🧡 Orange',
+            wikiTitle: '📚 Personal Wiki',
+            langEnglish: 'English',
+            langRussian: 'Russian',
+            langSpanish: 'Spanish',
+            langGerman: 'German',
+            langFrench: 'French',
+            langChinese: 'Chinese',
+            langJapanese: 'Japanese',
             // New Page specific
             createNewPage: 'Create New Page',
             createPageDesc: 'Create a new wiki page with Markdown formatting',
@@ -100,6 +108,14 @@ const WikiApp = {
             green: '💚 Зелёная',
             purple: '💜 Фиолетовая',
             orange: '🧡 Оранжевая',
+            wikiTitle: '📚 Персональная Вики',
+            langEnglish: 'Английский',
+            langRussian: 'Русский',
+            langSpanish: 'Испанский',
+            langGerman: 'Немецкий',
+            langFrench: 'Французский',
+            langChinese: 'Китайский',
+            langJapanese: 'Японский',
             // New Page specific
             createNewPage: 'Создать новую страницу',
             createPageDesc: 'Создать новую вики-страницу с форматированием Markdown',
@@ -162,6 +178,14 @@ const WikiApp = {
             green: '💚 Verde',
             purple: '💜 Morado',
             orange: '🧡 Naranja',
+            wikiTitle: '📚 Wiki Personal',
+            langEnglish: 'Inglés',
+            langRussian: 'Ruso',
+            langSpanish: 'Español',
+            langGerman: 'Alemán',
+            langFrench: 'Francés',
+            langChinese: 'Chino',
+            langJapanese: 'Japonés',
             // New Page specific
             createNewPage: 'Crear nueva página',
             createPageDesc: 'Crear una nueva página wiki con formato Markdown',
@@ -224,6 +248,14 @@ const WikiApp = {
             green: '💚 Grün',
             purple: '💜 Lila',
             orange: '🧡 Orange',
+            wikiTitle: '📚 Personal Wiki',
+            langEnglish: 'Englisch',
+            langRussian: 'Russisch',
+            langSpanish: 'Spanisch',
+            langGerman: 'Deutsch',
+            langFrench: 'Französisch',
+            langChinese: 'Chinesisch',
+            langJapanese: 'Japanisch',
             // New Page specific
             createNewPage: 'Neue Seite erstellen',
             createPageDesc: 'Erstellen Sie eine neue Wiki-Seite mit Markdown-Formatierung',
@@ -286,6 +318,14 @@ const WikiApp = {
             green: '💚 Vert',
             purple: '💜 Violet',
             orange: '🧡 Orange',
+            wikiTitle: '📚 Wiki Personnel',
+            langEnglish: 'Anglais',
+            langRussian: 'Russe',
+            langSpanish: 'Espagnol',
+            langGerman: 'Allemand',
+            langFrench: 'Français',
+            langChinese: 'Chinois',
+            langJapanese: 'Japonais',
             // New Page specific
             createNewPage: 'Créer une nouvelle page',
             createPageDesc: 'Créer une nouvelle page wiki avec formatage Markdown',
@@ -348,6 +388,14 @@ const WikiApp = {
             green: '💚 绿色',
             purple: '💜 紫色',
             orange: '🧡 橙色',
+            wikiTitle: '📚 个人维基',
+            langEnglish: '英语',
+            langRussian: '俄语',
+            langSpanish: '西班牙语',
+            langGerman: '德语',
+            langFrench: '法语',
+            langChinese: '中文',
+            langJapanese: '日语',
             // New Page specific
             createNewPage: '创建新页面',
             createPageDesc: '使用 Markdown 格式创建新的维基页面',
@@ -410,6 +458,14 @@ const WikiApp = {
             green: '💚 グリーン',
             purple: '💜 パープル',
             orange: '🧡 オレンジ',
+            wikiTitle: '📚 個人ウィキ',
+            langEnglish: '英語',
+            langRussian: 'ロシア語',
+            langSpanish: 'スペイン語',
+            langGerman: 'ドイツ語',
+            langFrench: 'フランス語',
+            langChinese: '中国語',
+            langJapanese: '日本語',
             // New Page specific
             createNewPage: '新しいページを作成',
             createPageDesc: 'Markdown 形式で新しいウィキページを作成',
@@ -565,18 +621,32 @@ const WikiApp = {
 
     // Update language selector UI
     updateLanguageSelectorUI() {
+        const t = this.translations[this.currentLang];
         document.querySelectorAll('.lang-option').forEach(option => {
-            option.classList.toggle('active', option.getAttribute('data-lang') === this.currentLang);
+            const langCode = option.getAttribute('data-lang');
+            const langNameKey = option.getAttribute('data-lang-name');
+            option.classList.toggle('active', langCode === this.currentLang);
+            // Translate language option text if data-lang-name key exists in translations
+            if (langNameKey && t[langNameKey]) {
+                option.textContent = t[langNameKey];
+            }
         });
         const btn = document.querySelector('.lang-selector-btn');
         if (btn) {
-            btn.textContent = this.currentLang.toUpperCase();
+            // Use translation for the button text
+            btn.textContent = t.language;
         }
     },
 
     // Translate page content
     translatePage() {
         const t = this.translations[this.currentLang];
+        
+        // Translate wiki title in header
+        const wikiTitleEl = document.querySelector('[data-translate="wikiTitle"]');
+        if (wikiTitleEl && t.wikiTitle) {
+            wikiTitleEl.textContent = t.wikiTitle;
+        }
         
         // Translate navigation links
         document.querySelectorAll('.nav-link').forEach(link => {
@@ -587,10 +657,12 @@ const WikiApp = {
             else if (href === 'new.html') link.innerHTML = t.newPage;
         });
 
-        // Translate section headers
-        document.querySelectorAll('.nav-section h3').forEach(header => {
-            if (header.textContent.trim() === 'Pages') header.textContent = t.pages;
-            else if (header.textContent.trim() === 'Folders') header.textContent = t.folders;
+        // Translate section headers using data-translate attribute
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            const key = el.getAttribute('data-translate');
+            if (t[key]) {
+                el.textContent = t[key];
+            }
         });
 
         // Translate welcome message
@@ -613,7 +685,7 @@ const WikiApp = {
 
         // Translate "All Pages" text
         document.querySelectorAll('h2').forEach(h2 => {
-            if (h2.textContent.startsWith('All Pages')) {
+            if (h2.textContent.startsWith('All Pages') || h2.textContent.startsWith(t.allPages.substring(0, 3))) {
                 const count = h2.textContent.match(/\d+/)?.[0] || '';
                 h2.textContent = `${t.allPages} (${count})`;
             }
