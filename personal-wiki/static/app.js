@@ -631,27 +631,46 @@ const WikiApp = {
         const t = this.translations[this.currentLang];
         
         if (confirm(`${t.confirmDelete}\n\n"${title}"`)) {
-            // For static site, we simulate deletion by hiding the element
-            // In a real app, this would make an API call to delete the file
-            if (cardElement) {
-                cardElement.style.transition = 'all 0.3s ease';
-                cardElement.style.opacity = '0';
-                cardElement.style.transform = 'scale(0.9)';
-                setTimeout(() => {
-                    cardElement.remove();
-                    // Update page count
-                    const remaining = document.querySelectorAll('.page-card').length;
-                    const allPagesHeader = document.querySelector('h2');
-                    if (allPagesHeader && allPagesHeader.textContent.includes(t.allPages)) {
-                        allPagesHeader.textContent = `${t.allPages} (${remaining})`;
+            // Generate slug from title for API call
+            const slug = title.toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)+/g, '');
+            
+            // Call API to delete the page
+            fetch('/api/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ slug })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (cardElement) {
+                        cardElement.style.transition = 'all 0.3s ease';
+                        cardElement.style.opacity = '0';
+                        cardElement.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            cardElement.remove();
+                            const remaining = document.querySelectorAll('.page-card').length;
+                            const allPagesHeader = document.querySelector('h2');
+                            if (allPagesHeader && allPagesHeader.textContent.includes(t.allPages)) {
+                                allPagesHeader.textContent = `${t.allPages} (${remaining})`;
+                            }
+                            alert(t.deleteSuccess);
+                        }, 300);
+                    } else {
+                        alert(t.deleteSuccess);
+                        window.location.href = 'index.html';
                     }
-                    alert(t.deleteSuccess);
-                }, 300);
-            } else {
-                // On individual page, redirect to home after "deletion"
-                alert(t.deleteSuccess);
-                window.location.href = 'index.html';
-            }
+                } else {
+                    alert(`${t.deleteError}: ${data.error}`);
+                }
+            })
+            .catch(error => {
+                alert(`${t.deleteError}: ${error.message}`);
+            });
         }
     },
     
@@ -673,36 +692,40 @@ const WikiApp = {
         // Parse tags
         const tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
         
-        // Generate slug from title
-        const slug = title.toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/(^-|-$)+/g, '');
+        // Show loading state
+        const submitBtn = document.querySelector('.btn-primary');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = '⏳ Creating...';
+        submitBtn.disabled = true;
         
-        // Build file path
-        const filePath = folder ? `${folder}/${slug}.md` : `${slug}.md`;
-        
-        // Build frontmatter
-        const today = new Date().toISOString().split('T')[0];
-        let frontmatter = `---\ntitle: ${title}\ncreated: ${today}\n`;
-        
-        if (tags.length > 0) {
-            frontmatter += `tags: [${tags.map(tag => tag).join(', ')}]\n`;
-        }
-        
-        frontmatter += `---\n\n`;
-        
-        // Full markdown content
-        const markdownContent = frontmatter + content;
-        
-        // Show instructions with translated message
-        alert(`${t.toCreatePage}\n\n1. ${t.createPageDesc}\n2. ${t.labelContent}: "${filePath}"\n\n${markdownContent.substring(0, 500)}...\n\nNote: Browser-based file creation requires server-side support.`);
-        
-        console.log('Page data:', {
-            title,
-            slug,
-            folder,
-            tags,
-            content: markdownContent
+        // Send to API
+        fetch('/api/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title,
+                folder,
+                tags: tags.join(','),
+                content
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Redirect to the new page
+                window.location.href = `${data.slug}.html`;
+            } else {
+                alert(`Error: ${data.error}`);
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        })
+        .catch(error => {
+            alert(`Error creating page: ${error.message}`);
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
         });
     }
 };

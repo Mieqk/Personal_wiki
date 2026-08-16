@@ -63,6 +63,119 @@ def cmd_serve(args: argparse.Namespace) -> int:
     def new_page():
         return send_from_directory(app.static_folder, 'new.html')
     
+    @app.route('/api/save', methods=['POST'])
+    def save_page():
+        """API endpoint to save a new wiki page."""
+        from flask import request, jsonify
+        import datetime
+        
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        
+        title = data.get('title', '').strip()
+        folder = data.get('folder', '').strip()
+        tags_input = data.get('tags', '').strip()
+        content = data.get('content', '').strip()
+        
+        if not title or not content:
+            return jsonify({'error': 'Title and content are required'}), 400
+        
+        # Parse tags
+        tags = []
+        if tags_input:
+            tags = [tag.strip() for tag in tags_input.split(',') if tag.strip()]
+        
+        # Generate slug from title
+        slug = title.lower()
+        for char in '-<>[]{}()/\\?@&!#$%*+|=^_~':
+            slug = slug.replace(char, '-')
+        slug = slug.strip('-')
+        
+        # Build file path
+        notes_dir = source
+        if folder:
+            folder_path = notes_dir / folder
+            folder_path.mkdir(parents=True, exist_ok=True)
+            file_path = folder_path / f"{slug}.md"
+        else:
+            file_path = notes_dir / f"{slug}.md"
+        
+        # Build frontmatter
+        today = datetime.datetime.now().strftime('%Y-%m-%d')
+        frontmatter = f"""---
+title: {title}
+created: {today}
+"""
+        
+        if tags:
+            frontmatter += f"tags: [{', '.join(tags)}]\n"
+        
+        frontmatter += "---\n\n"
+        
+        # Full markdown content
+        markdown_content = frontmatter + content
+        
+        try:
+            file_path.write_text(markdown_content, encoding='utf-8')
+            
+            # Rebuild the site to include the new page
+            output_dir = source.parent / f"{source.name}_output"
+            builder = WikiBuilder(str(source), str(output_dir))
+            builder.build()
+            
+            return jsonify({
+                'success': True,
+                'message': 'Page created successfully',
+                'slug': slug,
+                'path': str(file_path)
+            })
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/api/delete', methods=['POST'])
+    def delete_page():
+        """API endpoint to delete a wiki page."""
+        from flask import request, jsonify
+        
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        
+        slug = data.get('slug', '').strip()
+        
+        if not slug:
+            return jsonify({'error': 'Slug is required'}), 400
+        
+        # Find the file to delete
+        file_path = source / f"{slug}.md"
+        
+        # Also check in subdirectories
+        if not file_path.exists():
+            for md_file in source.rglob(f"{slug}.md"):
+                file_path = md_file
+                break
+        
+        if not file_path.exists():
+            return jsonify({'error': 'File not found'}), 404
+        
+        try:
+            file_path.unlink()
+            
+            # Rebuild the site
+            output_dir = source.parent / f"{source.name}_output"
+            builder = WikiBuilder(str(source), str(output_dir))
+            builder.build()
+            
+            return jsonify({
+                'success': True,
+                'message': 'Page deleted successfully'
+            })
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+    
     @app.route('/<path:path>')
     def serve_file(path):
         # Check if it's a direct HTML file request
