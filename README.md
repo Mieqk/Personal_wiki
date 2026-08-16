@@ -1,101 +1,104 @@
-# 🧠 Personal Wiki — Твоя локальная база знаний
+# 🧠 Personal Wiki — Your Local Knowledge Base
 
-> **Мощный, быстрый и полностью оффлайновый аналог Obsidian/Notion на Python.**  
-> Превращает папку с Markdown-файлами в красивый, интерактивный веб-сайт с графом связей, поиском и редактированием страниц прямо в браузере.
-
----
-
-## ✨ Почему это круто
-
-- 🔗 **Вики-ссылки** — связывай заметки через `[[как в Obsidian]]`
-- 🔍 **Мгновенный поиск** — полнотекстовый поиск по всем заметкам через SQLite FTS5
-- 🕸️ **Граф знаний** — визуализируй связи между идеями в интерактивном графе (D3.js)
-- ✏️ **Редактирование в браузере** — меняй страницы прямо на сайте, изменения сохраняются в исходные `.md` файлы
-- 🏷️ **Теги и метаданные** — организуй контент через YAML frontmatter
-- 🌙 **Тёмная тема из коробки** — минималистичный дизайн, приятный для глаз
-- ⚡ **Статическая генерация** — молниеносная загрузка страниц, никакой базы данных на продакшене
-- 📁 **Гибкая структура** — поддерживаются вложенные папки любой глубины
-- 🚀 **Локальный сервер** — запусти одной командой и работай в браузере
+> **A powerful, fast, and fully offline alternative to Obsidian/Notion built with Python.**  
+> Transforms a folder of Markdown files into a beautiful, interactive website with knowledge graphs, search, and in-browser editing.
+>
+> **Release v1.0** - Stable version with core features: wiki-links, full-text search, interactive graph, dark mode, and browser-based editing.
 
 ---
 
-## 🚀 Быстрый старт
+## ✨ Features
 
-### 1. Установка
+- 🔗 **Wiki-Links** — Connect notes using `[[Obsidian-style links]]`
+- 🔍 **Instant Search** — Full-text search across all notes powered by SQLite FTS5
+- 🕸️ **Knowledge Graph** — Visualize connections between ideas with an interactive D3.js graph
+- ✏️ **In-Browser Editing** — Edit pages directly on the site; changes save to original `.md` files
+- 🏷️ **Tags & Metadata** — Organize content via YAML frontmatter
+- 🌙 **Dark Mode Out-of-the-Box** — Minimalist design that's easy on the eyes
+- ⚡ **Static Generation** — Lightning-fast page loads, no database required for deployment
+- 📁 **Flexible Structure** — Supports nested folders of any depth
+- 🚀 **Local Server** — Start with a single command and work in your browser
+- 🌐 **English by Default** — Interface is in English automatically; language switching works consistently across the entire app
+
+---
+
+## 🚀 Quick Start
+
+### 1. Installation
 
 ```bash
-# Клонируй репозиторий
+# Clone the repository
 git clone <repository-url>
 cd personal-wiki
 
-# Установи зависимости
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-**Требования:** Python 3.11+ и pip
+**Requirements:** Python 3.11+ and pip
 
-### 2. Создай первые заметки
+### 2. Create Your First Notes
 
-В папке `notes/` уже есть примеры. Добавь свои `.md` файлы:
+The `notes/` folder already contains examples. Add your own `.md` files:
 
 ```markdown
 ---
-title: Мои идеи
-tags: [проекты, идеи]
+title: My Ideas
+tags: [projects, ideas]
 created: 2026-08-16
 ---
 
-# Привет, мир!
+# Hello, World!
 
-Это моя первая заметка. Вот ссылка на [[Другая заметка]].
+This is my first note. Here's a link to [[Another Note]].
 
-- [x] Создать вики
-- [ ] Добавить ещё заметок
-- [ ] Построить граф связей
+- [x] Create wiki
+- [ ] Add more notes
+- [ ] Build knowledge graph
 
 ```python
-print("Здесь может быть твой код")
+print("Your code could be here")
 ```
 ```
 
-### 3. Запусти сервер
+### 3. Start the Server
 
 ```bash
 python main.py serve --source notes/ --port 8000
 ```
 
-Открой в браузере: **http://localhost:8000** 🎉
+Open in your browser: **http://localhost:8000** 🎉
 
 ---
 
-## 📖 Команды CLI
+## 📖 CLI Commands
 
-### 🔨 Сборка сайта
+### 🔨 Build Site
 
 ```bash
 python main.py build --source notes/ --output output/
 ```
 
-| Параметр | Описание | По умолчанию |
-|----------|----------|--------------|
-| `--source` | Папка с `.md` файлами | `notes/` |
-| `--output` | Папка для готового сайта | `output/` |
-| `--incremental` | Собирать только изменённые файлы | ❌ |
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `--source` | Folder with `.md` files | `notes/` |
+| `--output` | Output folder for the built site | `output/` |
+| `--incremental` | Build only changed files | ❌ |
 
-### 🌐 Запуск локального сервера
+### 🌐 Start Local Server
 
 ```bash
 python main.py serve --source notes/ --port 8000
 ```
 
-| Параметр | Описание | По умолчанию |
-|----------|----------|--------------|
-| `--source` | Папка с `.md` файлами | `notes/` |
-| `--port` | Порт для сервера | `8000` |
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `--source` | Folder with `.md` files | `notes/` |
+| `--port` | Server port | `8000` |
 
-Сервер автоматически собирает сайт при запуске и отдаёт его через встроенный HTTP-сервер.
+The server automatically builds the site on startup and serves it via the built-in HTTP server.
 
-### ❓ Справка
+### ❓ Help
 
 ```bash
 python main.py --help
@@ -105,118 +108,118 @@ python main.py serve --help
 
 ---
 
-## 📝 Синтаксис заметок
+## 📝 Note Syntax
 
-### Вики-ссылки
+### Wiki-Links
 
-Связывай заметки между собой:
+Connect notes together:
 
 ```markdown
-[[Название заметки]]              # Простая ссылка
-[[Другая заметка|Красивый текст]] # Ссылка с кастомным текстом
+[[Note Title]]                    # Simple link
+[[Another Note|Custom Text]]      # Link with custom text
 ```
 
-- ✅ Существующие заметки подсвечиваются зелёным
-- ❌ Несуществующие — красным (клик создаст новую страницу)
+- ✅ Existing notes are highlighted in green
+- ❌ Non-existent notes are highlighted in red (clicking creates a new page)
 
 ### YAML Frontmatter
 
-Метаданные в начале файла:
+Metadata at the beginning of the file:
 
 ```yaml
 ---
-title: Заголовок страницы
-tags: [python, вики, проекты]
+title: Page Title
+tags: [python, wiki, projects]
 created: 2026-08-16
 updated: 2026-08-17
 ---
 ```
 
-| Поле | Описание |
-|------|----------|
-| `title` | Заголовок (если нет — берётся имя файла) |
-| `tags` | Теги для категоризации |
-| `created` | Дата создания |
-| `updated` | Дата последнего изменения |
+| Field | Description |
+|-------|-------------|
+| `title` | Page title (defaults to filename if missing) |
+| `tags` | Tags for categorization |
+| `created` | Creation date |
+| `updated` | Last modified date |
 
 ### Markdown
 
-Поддерживается **весь стандартный Markdown**:
+**Full standard Markdown** is supported:
 
-- Заголовки `#`, `##`, `###`
-- Списки (маркированные, нумерованные, чекбоксы `- [x]`)
-- Таблицы
-- Кодовые блоки с подсветкой синтаксиса
-- Изображения `![alt](path/to/image.png)`
-- Цитаты, **жирный**, *курсив*, ~~зачёркнутый~~ текст
-
----
-
-## 🔍 Поиск
-
-- Индексируются **заголовки**, **текст** и **теги** всех заметок
-- Мгновенные результаты с подсветкой совпадений
-- Поиск работает даже на больших базах знаний (1000+ заметок)
+- Headings `#`, `##`, `###`
+- Lists (bulleted, numbered, checkboxes `- [x]`)
+- Tables
+- Code blocks with syntax highlighting
+- Images `![alt](path/to/image.png)`
+- Quotes, **bold**, *italic*, ~~strikethrough~~ text
 
 ---
 
-## 🕸️ Граф связей
+## 🔍 Search
 
-Страница `/graph.html` показывает интерактивную карту твоих знаний:
-
-- 🔵 **Узлы** — заметки
-- 🔗 **Линии** — вики-ссылки между ними
-- 🖱️ **Клик** — перейти к заметке
-- 🔍 **Колёсико мыши** — масштабирование
-- ✋ **Перетаскивание** — перемещение по графу
+- Indexes **titles**, **content**, and **tags** of all notes
+- Instant results with highlighted matches
+- Works efficiently even with large knowledge bases (1000+ notes)
 
 ---
 
-## ✏️ Редактирование страниц
+## 🕸️ Knowledge Graph
 
-**Фишка этого вики!** Ты можешь редактировать заметки прямо в браузере:
+The `/graph.html` page displays an interactive map of your knowledge:
 
-1. Открой любую страницу
-2. Нажми кнопку **«Редактировать»** (иконка карандаша)
-3. Внеси изменения в редакторе
-4. Нажми **«Сохранить»** — изменения запишутся в исходный `.md` файл
-
-> ⚠️ Для работы редактирования сервер должен быть запущен через `python main.py serve` (не просто статический файл).
+- 🔵 **Nodes** — Notes
+- 🔗 **Lines** — Wiki-links between them
+- 🖱️ **Click** — Navigate to note
+- 🔍 **Mouse wheel** — Zoom
+- ✋ **Drag** — Pan around the graph
 
 ---
 
-## 📁 Структура проекта
+## ✏️ Page Editing
+
+**A key feature of this wiki!** You can edit notes directly in your browser:
+
+1. Open any page
+2. Click the **"Edit"** button (pencil icon)
+3. Make changes in the editor
+4. Click **"Save"** — changes are written back to the original `.md` file
+
+> ⚠️ Editing requires the server to be running via `python main.py serve` (not just opening static files).
+
+---
+
+## 📁 Project Structure
 
 ```
 personal-wiki/
-├── main.py              # CLI интерфейс (запуск, сборка)
-├── builder.py           # Генерация HTML из Markdown
-├── frontmatter.py       # Парсинг YAML frontmatter
-├── templates/           # HTML шаблоны (Jinja2)
-│   ├── base.html        # Базовый шаблон
-│   ├── page.html        # Страница заметки
-│   ├── index.html       # Главная страница
-│   ├── search.html      # Поиск
-│   ├── graph.html       # Граф связей
-│   └── edit.html        # Редактор страниц
-├── static/              # Статика
-│   ├── style.css        # Стили (тёмная тема)
-│   └── app.js           # Поиск, граф, редактирование
-├── notes/               # Твои заметки (источник)
+├── main.py              # CLI interface (start, build)
+├── builder.py           # HTML generation from Markdown
+├── frontmatter.py       # YAML frontmatter parser
+├── templates/           # HTML templates (Jinja2)
+│   ├── base.html        # Base template
+│   ├── page.html        # Note page
+│   ├── index.html       # Homepage
+│   ├── search.html      # Search page
+│   ├── graph.html       # Knowledge graph
+│   └── edit.html        # Page editor
+├── static/              # Static assets
+│   ├── style.css        # Styles (dark theme)
+│   └── app.js           # Search, graph, editing logic
+├── notes/               # Your notes (source)
 │   ├── index.md
 │   ├── project-ideas.md
 │   └── daily/
 │       └── 2026-08-16.md
-├── notes_output/        # Сгенерированный сайт (для serve)
-├── output/              # Сгенерированный сайт (для build)
-└── requirements.txt     # Зависимости Python
+├── notes_output/        # Generated site (for serve)
+├── output/              # Generated site (for build)
+└── requirements.txt     # Python dependencies
 ```
 
 ---
 
-## 🗂️ Примеры организации заметок
+## 🗂️ Example Note Organization
 
-### 📅 Ежедневные заметки
+### 📅 Daily Notes
 
 ```
 notes/
@@ -226,7 +229,7 @@ notes/
     └── 2026-08-18.md
 ```
 
-### 💼 Проектная документация
+### 💼 Project Documentation
 
 ```
 notes/
@@ -236,7 +239,7 @@ notes/
     └── roadmap.md
 ```
 
-### 📚 База знаний
+### 📚 Knowledge Base
 
 ```
 notes/
@@ -251,55 +254,57 @@ notes/
 
 ---
 
-## 🎨 Кастомизация
+## 🎨 Customization
 
-Проект легко расширяется:
+The project is easily extensible:
 
-- 🎨 **Стили** — правь `static/style.css` (цвета, шрифты, отступы)
-- ⚙️ **Логика** — добавляй функции в `static/app.js`
-- 📄 **Шаблоны** — меняй HTML в `templates/`
-- 🛠️ **Новые команды** — добавляй обработчики в `main.py`
-
----
-
-## 🐛 Отладка
-
-Если что-то пошло не так:
-
-1. Проверь **YAML frontmatter** (отступы, кавычки, двоеточия)
-2. Убедись, что **Markdown валиден** (закрывающие теги, кавычки)
-3. Проверь **права доступа** к папкам (особенно на Windows/Mac)
-4. Смотри **ошибки в консоли** — проблемные файлы пропускаются с логом
+- 🎨 **Styles** — Modify `static/style.css` (colors, fonts, spacing)
+- ⚙️ **Logic** — Add functions to `static/app.js`
+- 📄 **Templates** — Change HTML in `templates/`
+- 🛠️ **New Commands** — Add handlers in `main.py`
 
 ---
 
-## 🤝 Вклад в развитие
+## 🐛 Debugging
 
-Хочешь улучшить проект?
+If something goes wrong:
 
-1. Forkни репозиторий
-2. Создай ветку `git checkout -b feature/твоя-фича`
-3. Закоммить изменения `git commit -am 'Добавил крутую фичу'`
-4. Отправь в remote `git push origin feature/твоя-фича`
-5. Создай **Pull Request** 🚀
-
----
-
-## 📬 Поддержка
-
-Нашёл баг или есть идея? Создай **Issue** в репозитории с:
-- Описанием проблемы
-- Шагами воспроизведения
-- Версией Python и ОС
+1. Check **YAML frontmatter** (indentation, quotes, colons)
+2. Ensure **Markdown is valid** (closing tags, quotes)
+3. Verify **folder permissions** (especially on Windows/Mac)
+4. Check **console errors** — problematic files are skipped with a log message
 
 ---
 
-## 📜 Лицензия
+## 🤝 Contributing
 
-**MIT License** — используй бесплатно в личных и коммерческих проектах. Делай что хочешь! 🎉
+Want to improve the project?
+
+1. Fork the repository
+2. Create a branch `git checkout -b feature/your-feature`
+3. Commit changes `git commit -am 'Added cool feature'`
+4. Push to remote `git push origin feature/your-feature`
+5. Create a **Pull Request** 🚀
 
 ---
 
-> 💡 **Совет:** Добавь алиас в `.bashrc` или `profile`:  
+## 📬 Support
+
+Found a bug or have an idea? Create an **Issue** in the repository with:
+- Problem description
+- Steps to reproduce
+- Python version and OS
+
+---
+
+## 📜 License
+
+**MIT License** — Use freely in personal and commercial projects. Do whatever you want! 🎉
+
+See the [LICENSE](LICENSE) file for details.
+
+---
+
+> 💡 **Tip:** Add an alias to your `.bashrc` or `profile`:  
 > `alias wiki='python /path/to/personal-wiki/main.py serve --source ~/notes/'`  
-> Теперь достаточно ввести `wiki` в терминале — и твоя база знаний готова!
+> Now just type `wiki` in your terminal — and your knowledge base is ready!
