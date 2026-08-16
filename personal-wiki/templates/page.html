@@ -60,12 +60,12 @@
 <article class="wiki-page">
     <header class="page-header">
         <div class="page-actions">
-            <a href="{{ static_prefix|default('') }}edit/{{ page.slug }}.html" class="btn-edit" data-translate="btnEdit">✏️ Edit</a>
-            <button class="btn-delete" onclick="WikiApp.handleDeletePage('{{ page.slug }}')" data-translate="delete">🗑️ Delete</button>
+            <a href="{{ static_prefix|default('') }}edit/{{ page.slug }}.html" class="btn-edit" data-translate="btnEdit">✏️ Редактировать</a>
+            <button class="btn-delete" onclick="WikiApp.handleDeletePage('{{ page.slug }}')" data-translate="delete">🗑️ Удалить</button>
         </div>
         <h1>{{ page.title }}</h1>
         {% if page.created %}
-        <p class="meta">Created: {{ page.created }}</p>
+        <p class="meta">Создано: {{ page.created }}</p>
         {% endif %}
         {% if page.tags %}
         <div class="tags">

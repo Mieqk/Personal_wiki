@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}✏️ Edit {{ page.title }} - Personal Wiki{% endblock %}
+{% block title %}✏️ Редактирование {{ page.title }} - Персональная Вики{% endblock %}
 
 {% block extra_head %}
 <style>
@@ -160,8 +160,8 @@
 {% block content %}
 <div class="edit-page-container">
     <header class="edit-page-header">
-        <h1 data-translate="editPageTitle">✏️ Edit Page</h1>
-        <p data-translate="editPageDesc">Edit "{{ page.title }}" with Markdown formatting</p>
+        <h1 data-translate="editPageTitle">✏️ Редактировать страницу</h1>
+        <p data-translate="editPageDesc">Редактирование "{{ page.title }}" с форматированием Markdown</p>
     </header>
     
     <form id="editPageForm" class="edit-page-form" onsubmit="WikiApp.handleEdit(event)">

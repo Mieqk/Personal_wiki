@@ -1,1 +1,48 @@
-Nothing should be ignored based on the provided file changes. The only modified file is 'personal-wiki/static/app.js', which is a source file and should not be added to .gitignore.
+```
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.ENV
+.ENV.*
+.venv.bak/
+env.bak/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Coverage
+.coverage
+htmlcov/
+coverage/
+
+# Testing
+.pytest_cache/
+.mypy_cache/
+```
