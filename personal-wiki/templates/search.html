@@ -262,14 +262,14 @@
     <header class="search-header">
         <div class="search-input-wrapper">
             <span class="search-input-icon">🔍</span>
-            <input type="text" id="searchInput" class="search-input" data-translate-placeholder="searchPlaceholder" placeholder="Search pages...">
+            <input type="text" id="searchInput" class="search-input" data-translate-placeholder="searchPlaceholder" placeholder="Поиск страниц...">
         </div>
     </header>
     
     <div class="search-results-container">
         <div class="results-header">
-            <h2 data-translate="searchResults">Search Results</h2>
-            <span id="resultsCount" class="results-count">0 found</span>
+            <h2 data-translate="searchResults">Результаты поиска</h2>
+            <span id="resultsCount" class="results-count">0 найдено</span>
         </div>
         <div id="resultsList" class="results-list">
             <!-- Results will be populated here -->
@@ -296,7 +296,7 @@
         
         if (normalizedQuery.length === 0) {
             resultsList.innerHTML = '<p class="no-results" data-translate="enterQuery">Enter a search query to find pages</p>';
-            resultsCount.textContent = '0 found';
+            resultsCount.textContent = '0 найдено';
             return;
         }
         
@@ -306,10 +306,10 @@
                    item.tags.some(tag => tag.toLowerCase().includes(normalizedQuery));
         });
         
-        resultsCount.textContent = `${results.length} found`;
+        resultsCount.textContent = `${results.length} найдено`;
         
         if (results.length === 0) {
-            resultsList.innerHTML = '<p class="no-results" data-translate="noResults">No results found</p>';
+            resultsList.innerHTML = '<p class="no-results" data-translate="noResults">No results найдено</p>';
             return;
         }
         
