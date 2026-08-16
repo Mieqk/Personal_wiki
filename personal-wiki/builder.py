@@ -124,13 +124,14 @@ class WikiBuilder:
         matches = re.findall(pattern, content)
         return matches
     
-    def process_wiki_links(self, html: str, page_slugs: set[str]) -> str:
+    def process_wiki_links(self, html: str, page_slugs: set[str], source_folder_path: str = "") -> str:
         """
         Process wiki-style links in HTML content.
         
         Args:
             html: HTML content with potential wiki links.
             page_slugs: Set of available page slugs.
+            source_folder_path: Folder path of the source page (for relative links).
             
         Returns:
             HTML with wiki links converted to proper anchors.
@@ -163,7 +164,15 @@ class WikiBuilder:
                     target_slug = test_slug
             
             if target_slug:
-                return f'<a href="{target_slug}.html" class="wiki-link">{link_text}</a>'
+                # Calculate relative path from source folder to target
+                if source_folder_path:
+                    # Count depth of source folder
+                    depth = len(source_folder_path.split("/"))
+                    prefix = "../" * depth
+                else:
+                    prefix = ""
+                
+                return f'<a href="{prefix}{target_slug}.html" class="wiki-link">{link_text}</a>'
             else:
                 return f'<a href="#" class="broken-link" title="Page not found: {link_text}">{link_text}</a>'
         
@@ -450,7 +459,7 @@ class WikiBuilder:
         # Process wiki links (need all pages first)
         page_slugs = set(self.pages.keys())
         for page in self.pages.values():
-            page.content_html = self.process_wiki_links(page.content_html, page_slugs)
+            page.content_html = self.process_wiki_links(page.content_html, page_slugs, page.folder_path)
         
         # Build folder navigation tree
         self.build_folder_tree()
