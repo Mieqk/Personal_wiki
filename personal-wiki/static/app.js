@@ -830,8 +830,9 @@ const WikiApp = {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Redirect to the new page
-                window.location.href = `${data.slug}.html`;
+                // Redirect to the new page - handle folder paths correctly
+                const redirectPath = data.folder ? `${data.folder}/${data.slug}.html` : `${data.slug}.html`;
+                window.location.href = redirectPath;
             } else {
                 alert(`Error: ${data.error}`);
                 submitBtn.textContent = originalText;

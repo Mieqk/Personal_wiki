@@ -1,5 +1,1 @@
-```
-# Build/output directories
-personal-wiki/notes_output/
-personal-wiki/output/
-```
+Nothing should be ignored based on the provided file changes. The only modified file is 'personal-wiki/static/app.js', which is a source file and should not be added to .gitignore.
