@@ -13,25 +13,17 @@ dist/
 # Logs
 *.log
 
-# Temporary files
-*.tmp
-*.swp
+# Dependencies
+venv/
+.venv/
+node_modules/
 
-# Environment files
-.env
-.env.local
-*.env.*
-
-# Coverage reports
+# Coverage
 .coverage
 coverage/
 htmlcov/
 
-# Editors
-.vscode/
-.idea/
-
-# OS generated files
+# OS
 .DS_Store
 Thumbs.db
 ```
