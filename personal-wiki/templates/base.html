@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Personal Wiki{% endblock %}</title>
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="{{ static_prefix|default('') }}static/style.css">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
     <div class="container">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h1><a href="index.html">📚 Personal Wiki</a></h1>
+                <h1><a href="{{ static_prefix|default('') }}index.html">📚 Personal Wiki</a></h1>
                 <div class="header-controls">
                     <!-- Theme Selector -->
                     <div class="theme-selector">
@@ -63,10 +63,10 @@
             
             <nav class="sidebar-nav">
                 <div class="nav-section main-nav">
-                    <a href="index.html" class="nav-link {{ 'active' if current_page == 'index' else '' }}">🏠 Home</a>
-                    <a href="graph.html" class="nav-link {{ 'active' if current_page == 'graph' else '' }}">🕸️ Graph</a>
-                    <a href="search.html" class="nav-link {{ 'active' if current_page == 'search' else '' }}">🔍 Search</a>
-                    <a href="new.html" class="nav-link {{ 'active' if current_page == 'new' else '' }}">➕ New Page</a>
+                    <a href="{{ static_prefix|default('') }}index.html" class="nav-link {{ 'active' if current_page == 'index' else '' }}">🏠 Home</a>
+                    <a href="{{ static_prefix|default('') }}graph.html" class="nav-link {{ 'active' if current_page == 'graph' else '' }}">🕸️ Graph</a>
+                    <a href="{{ static_prefix|default('') }}search.html" class="nav-link {{ 'active' if current_page == 'search' else '' }}">🔍 Search</a>
+                    <a href="{{ static_prefix|default('') }}new.html" class="nav-link {{ 'active' if current_page == 'new' else '' }}">➕ New Page</a>
                 </div>
                 
                 <div class="nav-section">
@@ -74,7 +74,7 @@
                     <ul class="page-list">
                         {% for item in nav_items %}
                         <li class="page-item {% if page and page.slug == item.slug %}active{% endif %}">
-                            <a href="{{ item.slug }}.html">{{ item.title }}</a>
+                            <a href="{{ static_prefix|default('') }}{{ item.slug }}.html">{{ item.title }}</a>
                         </li>
                         {% endfor %}
                     </ul>
@@ -94,7 +94,7 @@
         </main>
     </div>
     
-    <script src="static/app.js"></script>
+    <script src="{{ static_prefix|default('') }}static/app.js"></script>
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>

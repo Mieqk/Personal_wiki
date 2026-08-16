@@ -7,36 +7,34 @@ __pycache__/
 
 # Build artifacts
 personal-wiki/output/
-
-# Logs
-*.log
+personal-wiki/build/
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Editors
+# Dependencies
+.venv/
+venv/
+pip-wheel-metadata/
+
+# Logs
+*.log
+
+# Editor
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# Dependencies
-venv/
-.venv/
-node_modules/
+*.tmp
 
 # Coverage
 .coverage
 coverage/
 htmlcov/
 
-# Temporary files
-*.tmp
-*.temp
-
-# OS specific
+# OS
 .DS_Store
 Thumbs.db
 ```
