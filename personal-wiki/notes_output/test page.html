@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page - Personal Wiki</title>
+    <link rel="stylesheet" href="static/style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><a href="index.html">📚 Personal Wiki</a></h1>
+                <div class="header-controls">
+                    <!-- Theme Selector -->
+                    <div class="theme-selector">
+                        <button class="theme-selector-btn" title="Select theme">🎨</button>
+                        <div class="theme-dropdown">
+                            <h4 data-translate="theme">Theme</h4>
+                            <div class="theme-option" data-theme="light">
+                                <span class="theme-preview" style="background: #ffffff;"></span>
+                                <span data-translate="light">☀️ Light</span>
+                            </div>
+                            <div class="theme-option" data-theme="dark">
+                                <span class="theme-preview" style="background: #191919;"></span>
+                                <span data-translate="dark">🌙 Dark</span>
+                            </div>
+                            <div class="theme-option" data-theme="blue">
+                                <span class="theme-preview" style="background: #3b82f6;"></span>
+                                <span data-translate="blue">💙 Blue</span>
+                            </div>
+                            <div class="theme-option" data-theme="green">
+                                <span class="theme-preview" style="background: #22c55e;"></span>
+                                <span data-translate="green">💚 Green</span>
+                            </div>
+                            <div class="theme-option" data-theme="purple">
+                                <span class="theme-preview" style="background: #a855f7;"></span>
+                                <span data-translate="purple">💜 Purple</span>
+                            </div>
+                            <div class="theme-option" data-theme="orange">
+                                <span class="theme-preview" style="background: #f97316;"></span>
+                                <span data-translate="orange">🧡 Orange</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Language Selector -->
+                    <div class="lang-selector">
+                        <button class="lang-selector-btn" title="Select language">EN</button>
+                        <div class="lang-dropdown">
+                            <div class="lang-option" data-lang="en">English</div>
+                            <div class="lang-option" data-lang="ru">Русский</div>
+                            <div class="lang-option" data-lang="es">Español</div>
+                            <div class="lang-option" data-lang="de">Deutsch</div>
+                            <div class="lang-option" data-lang="fr">Français</div>
+                            <div class="lang-option" data-lang="zh">中文</div>
+                            <div class="lang-option" data-lang="ja">日本語</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section main-nav">
+                    <a href="index.html" class="nav-link ">🏠 Home</a>
+                    <a href="graph.html" class="nav-link ">🕸️ Graph</a>
+                    <a href="search.html" class="nav-link ">🔍 Search</a>
+                    <a href="new.html" class="nav-link ">➕ New Page</a>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Pages</h3>
+                    <ul class="page-list">
+                        
+                        <li class="page-item ">
+                            <a href="daily/2026-08-16.html">Daily Note 2026-08-16</a>
+                        </li>
+                        
+                        <li class="page-item ">
+                            <a href="project-ideas.html">Project Ideas</a>
+                        </li>
+                        
+                        <li class="page-item active">
+                            <a href="test page.html">Test Page</a>
+                        </li>
+                        
+                        <li class="page-item ">
+                            <a href="index.html">Welcome to Personal Wiki</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Folders</h3>
+                    <ul class="folder-tree">
+                        
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        
+        <main class="content">
+            
+<article class="wiki-page">
+    <header class="page-header">
+        <h1>Test Page</h1>
+        
+        <p class="meta">Created: 2026-08-16</p>
+        
+        
+        <div class="tags">
+            
+            <span class="tag">#test</span>
+            
+            <span class="tag">#demo</span>
+            
+        </div>
+        
+    </header>
+    
+    <div class="page-content">
+        <p>This is a test page content.</p>
+    </div>
+</article>
+
+        </main>
+    </div>
+    
+    <script src="static/app.js"></script>
+    
+</body>
+</html>
