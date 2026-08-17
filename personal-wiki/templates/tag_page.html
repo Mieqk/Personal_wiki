@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}#{{ tag }} - Personal Wiki{% endblock %}
+
+{% block content %}
+<div class="tag-page">
+    <header class="page-header">
+        <h1><span class="tag">#{{ tag }}</span></h1>
+        <p data-translate="tagPagesCount">{{ pages|length }} страниц(ы) с этим тегом</p>
+        <a href="tags.html" class="back-link">← 🏷️ Все теги</a>
+    </header>
+    
+    <section class="tag-pages-section">
+        {% if pages %}
+        <div class="page-grid">
+            {% for page in pages|sort(attribute='title') %}
+            <div class="page-card">
+                <h3><a href="{{ page.slug }}.html">{{ page.title }}</a></h3>
+                {% if page.folder_path %}
+                <p class="folder-path">📁 {{ page.folder_path }}</p>
+                {% endif %}
+                {% if page.created %}
+                <p class="page-date">📅 {{ page.created }}</p>
+                {% endif %}
+                {% if page.tags %}
+                <div class="tags">
+                    {% for t in page.tags %}
+                    <a href="../tags/{{ t }}.html" class="tag-link">#{{ t }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-message">Нет страниц с этим тегом.</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
