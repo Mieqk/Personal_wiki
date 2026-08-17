@@ -11,7 +11,7 @@ from dataclasses import dataclass, field
 import markdown
 from jinja2 import Environment, FileSystemLoader
 
-from frontmatter import parse_frontmatter, get_title, get_tags, get_created
+from frontmatter import parse_frontmatter, get_title, get_tags, get_created, get_pinned
 
 
 @dataclass
@@ -26,6 +26,8 @@ class WikiPage:
     created: Optional[str] = None
     links: List[str] = field(default_factory=list)  # Wiki links found in content
     folder_path: str = ""  # Relative folder path for navigation
+    pinned: bool = False  # Whether the page is pinned
+    backlinks: List[str] = field(default_factory=list)  # Pages that link to this one
 
 
 @dataclass
@@ -203,6 +205,7 @@ class WikiBuilder:
         title = get_title(frontmatter, str(filepath))
         tags = get_tags(frontmatter)
         created = get_created(frontmatter)
+        pinned = get_pinned(frontmatter)
         
         # Extract wiki links before rendering
         wiki_links = self.extract_wiki_links(body)
@@ -223,7 +226,8 @@ class WikiBuilder:
             tags=tags,
             created=created,
             links=wiki_links,
-            folder_path=folder_path
+            folder_path=folder_path,
+            pinned=pinned
         )
     
     def build_folder_tree(self) -> None:
@@ -312,12 +316,24 @@ class WikiBuilder:
                 index_page = page
                 break
         
+        # Get pinned pages
+        pinned_pages = [p for p in all_pages if p.pinned]
+        
+        # Get recent pages (sorted by created date, descending)
+        def get_sort_key(page):
+            if page.created:
+                return page.created
+            return ''
+        recent_pages = sorted(all_pages, key=get_sort_key, reverse=True)[:10]
+        
         return template.render(
             all_pages=all_pages,
             nav_items=nav_items,
             folder_tree=self.folder_tree,
             index_page=index_page,
-            current_page='index'
+            current_page='index',
+            pinned_pages=pinned_pages,
+            recent_pages=recent_pages
         )
     
     def render_graph(self, all_pages: List[WikiPage]) -> str:
@@ -458,6 +474,38 @@ class WikiBuilder:
             current_page='edit'
         )
     
+    def render_tags(self, all_pages: List[WikiPage]) -> str:
+        """
+        Render the tags page showing all tags with page counts.
+        
+        Args:
+            all_pages: List of all pages.
+            
+        Returns:
+            Rendered HTML string.
+        """
+        template = self.jinja_env.get_template("tags.html")
+        nav_items = self._build_nav_data()
+        
+        # Collect all tags and their pages
+        tags_dict = {}
+        for page in all_pages:
+            for tag in page.tags:
+                if tag not in tags_dict:
+                    tags_dict[tag] = []
+                tags_dict[tag].append(page)
+        
+        # Sort tags alphabetically
+        sorted_tags = sorted(tags_dict.items(), key=lambda x: x[0])
+        
+        return template.render(
+            all_pages=all_pages,
+            nav_items=nav_items,
+            folder_tree=self.folder_tree,
+            tags=sorted_tags,
+            current_page='tags'
+        )
+    
     def _build_nav_data(self) -> List[Dict[str, Any]]:
         """Build navigation data for templates."""
         nav_items = []
@@ -488,6 +536,29 @@ class WikiBuilder:
         for page in self.pages.values():
             page.content_html = self.process_wiki_links(page.content_html, page_slugs, page.folder_path)
         
+        # Compute backlinks: for each page, find which pages link to it
+        slug_to_page = {p.slug: p for p in self.pages.values()}
+        title_to_slug = {}
+        for p in self.pages.values():
+            title_to_slug[p.title.lower()] = p.slug
+            test_slug = p.title.lower().replace(' ', '-')
+            title_to_slug[test_slug] = p.slug
+        
+        for page in self.pages.values():
+            for link_title in page.links:
+                # Try to find target page by title
+                target_slug = None
+                if link_title.lower() in title_to_slug:
+                    target_slug = title_to_slug[link_title.lower()]
+                else:
+                    test_slug = link_title.lower().replace(' ', '-')
+                    if test_slug in title_to_slug:
+                        target_slug = title_to_slug[test_slug]
+                
+                if target_slug and target_slug in slug_to_page:
+                    # Add this page's title to the target's backlinks
+                    slug_to_page[target_slug].backlinks.append(page.title)
+        
         # Build folder navigation tree
         self.build_folder_tree()
         
@@ -508,6 +579,12 @@ class WikiBuilder:
         index_path = self.output_dir / "index.html"
         index_path.write_text(index_html, encoding='utf-8')
         print(f"Generated: {index_path}")
+        
+        # Generate tags page
+        tags_html = self.render_tags(all_pages)
+        tags_path = self.output_dir / "tags.html"
+        tags_path.write_text(tags_html, encoding='utf-8')
+        print(f"Generated: {tags_path}")
         
         # Generate graph page
         graph_html = self.render_graph(all_pages)

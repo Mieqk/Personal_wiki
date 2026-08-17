@@ -92,3 +92,18 @@ def get_created(frontmatter: Optional[Dict[str, Any]]) -> Optional[str]:
     if frontmatter and 'created' in frontmatter:
         return str(frontmatter['created'])
     return None
+
+
+def get_pinned(frontmatter: Optional[Dict[str, Any]]) -> bool:
+    """
+    Check if page is pinned from frontmatter.
+    
+    Args:
+        frontmatter: Parsed frontmatter dictionary.
+        
+    Returns:
+        True if pinned, False otherwise.
+    """
+    if frontmatter and 'pinned' in frontmatter:
+        return bool(frontmatter['pinned'])
+    return False
