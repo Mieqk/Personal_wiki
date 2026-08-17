@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Tags - Personal Wiki{% endblock %}
+
+{% block content %}
+<div class="tags-page">
+    <header class="page-header">
+        <h1 data-translate="allTags">🏷️ Все теги</h1>
+    </header>
+    
+    <section class="tags-list-section">
+        {% if tags %}
+        <div class="tags-grid">
+            {% for tag, pages in tags %}
+            <div class="tag-card">
+                <h3><a href="tags/{{ tag }}.html" class="tag-link">#{{ tag }}</a></h3>
+                <span class="tag-count" data-translate="pagesCount">{{ pages|length }} страниц(ы)</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-message" data-translate="noTags">Нет тегов. Добавьте теги к вашим страницам!</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

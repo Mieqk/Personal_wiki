@@ -8,8 +8,47 @@
         <h1 data-translate="welcome">📚 Welcome to Your Personal Wiki</h1>
     </header>
     
+    {% if pinned_pages %}
+    <section class="pinned-section">
+        <h2 data-translate="pinnedPages">📌 Закреплённые заметки</h2>
+        <div class="page-grid">
+            {% for page in pinned_pages|sort(attribute='title') %}
+            <div class="page-card pinned">
+                <h3><a href="{{ page.slug }}.html">{{ page.title }}</a></h3>
+                {% if page.folder_path %}
+                <p class="folder-path">📁 {{ page.folder_path }}</p>
+                {% endif %}
+                {% if page.tags %}
+                <div class="tags">
+                    {% for tag in page.tags %}
+                    <span class="tag">#{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    
+    <section class="recent-section">
+        <h2 data-translate="recentNotes">🕐 Недавние заметки</h2>
+        {% if recent_pages %}
+        <div class="page-list-compact">
+            {% for page in recent_pages %}
+            <div class="page-item-compact">
+                <a href="{{ page.slug }}.html">{{ page.title }}</a>
+                {% if page.created %}
+                <span class="page-date">{{ page.created }}</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </section>
+    
     <section class="overview">
-        <h2 data-translate="allPages">All Pages ({{ all_pages|length }})</h2>
+        <h2 data-translate="allPages">Все страницы ({{ all_pages|length }})</h2>
         
         {% if all_pages %}
         <div class="page-grid">
@@ -22,7 +61,7 @@
                 {% if page.tags %}
                 <div class="tags">
                     {% for tag in page.tags %}
-                    <span class="tag">#{{ tag }}</span>
+                    <a href="tags/{{ tag }}.html" class="tag-link">#{{ tag }}</a>
                     {% endfor %}
                 </div>
                 {% endif %}
