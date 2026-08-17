@@ -15,6 +15,7 @@ a = Analysis(
 pyz = PYZ(a.pure)
 
 exe = EXE(
+    icon='icon.ico',
     pyz,
     a.scripts,
     [],
