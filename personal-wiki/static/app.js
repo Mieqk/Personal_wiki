@@ -74,7 +74,9 @@ const WikiApp = {
             totalLinks: 'Total Links:',
             zoomIn: 'Zoom In',
             zoomOut: 'Zoom Out',
-            resetZoom: 'Reset'
+            resetZoom: 'Reset',
+            pinnedPages: '📌 Pinned Pages',
+            recentNotes: '🕐 Recent Notes'
         },
         ru: {
             home: '🏠 Главная',
@@ -144,7 +146,9 @@ const WikiApp = {
             totalLinks: 'Всего связей:',
             zoomIn: 'Увеличить',
             zoomOut: 'Уменьшить',
-            resetZoom: 'Сбросить'
+            resetZoom: 'Сбросить',
+            pinnedPages: '📌 Закреплённые заметки',
+            recentNotes: '🕐 Недавние заметки'
         },
         es: {
             home: '🏠 Inicio',
@@ -214,7 +218,9 @@ const WikiApp = {
             totalLinks: 'Total de enlaces:',
             zoomIn: 'Acercar',
             zoomOut: 'Alejar',
-            resetZoom: 'Restablecer'
+            resetZoom: 'Restablecer',
+            pinnedPages: '📌 Páginas Fijadas',
+            recentNotes: '🕐 Notas Recientes'
         },
         de: {
             home: '🏠 Startseite',
@@ -284,7 +290,9 @@ const WikiApp = {
             totalLinks: 'Gesamtverbindungen:',
             zoomIn: 'Vergrößern',
             zoomOut: 'Verkleinern',
-            resetZoom: 'Zurücksetzen'
+            resetZoom: 'Zurücksetzen',
+            pinnedPages: '📌 Angeheftete Seiten',
+            recentNotes: '🕐 Letzte Notizen'
         },
         fr: {
             home: '🏠 Accueil',
@@ -354,7 +362,9 @@ const WikiApp = {
             totalLinks: 'Nombre total de liens:',
             zoomIn: 'Zoom avant',
             zoomOut: 'Zoom arrière',
-            resetZoom: 'Réinitialiser'
+            resetZoom: 'Réinitialiser',
+            pinnedPages: '📌 Pages Épinglées',
+            recentNotes: '🕐 Notes Récentes'
         },
         zh: {
             home: '🏠 首页',
@@ -424,7 +434,9 @@ const WikiApp = {
             totalLinks: '链接总数:',
             zoomIn: '放大',
             zoomOut: '缩小',
-            resetZoom: '重置'
+            resetZoom: '重置',
+            pinnedPages: '📌 固定页面',
+            recentNotes: '🕐 最近笔记'
         },
         ja: {
             home: '🏠 ホーム',

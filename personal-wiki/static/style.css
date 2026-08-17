@@ -308,7 +308,7 @@ a:hover {
 
 .theme-dropdown {
     position: absolute;
-    top: calc(100% + 4px);
+    top: 100%;
     right: 0;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -317,7 +317,7 @@ a:hover {
     padding: 8px;
     min-width: 220px;
     max-width: 260px;
-    max-height: 400px;
+    max-height: 350px;
     overflow-y: auto;
     z-index: 10000;
     display: none;
@@ -395,7 +395,7 @@ a:hover {
 
 .lang-dropdown {
     position: absolute;
-    top: calc(100% + 4px);
+    top: 100%;
     right: 0;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
