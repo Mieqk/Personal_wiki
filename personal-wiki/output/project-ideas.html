@@ -3,9 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Personal Wiki</title>
+    <title>Project Ideas - Personal Wiki</title>
     <link rel="stylesheet" href="static/style.css">
     
+<style>
+    .page-actions {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+        justify-content: flex-end;
+    }
+    
+    .btn-edit {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+    }
+    
+    .btn-edit:hover {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+        color: white;
+    }
+    
+    .btn-delete {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: var(--transition-smooth);
+    }
+    
+    .btn-delete:hover {
+        background: #dc3545;
+        border-color: #dc3545;
+        color: white;
+    }
+</style>
+
 </head>
 <body>
     <div class="container">
@@ -63,7 +115,7 @@
             
             <nav class="sidebar-nav">
                 <div class="nav-section main-nav">
-                    <a href="index.html" class="nav-link active" data-translate="home">🏠 Home</a>
+                    <a href="index.html" class="nav-link " data-translate="home">🏠 Home</a>
                     <a href="graph.html" class="nav-link " data-translate="graph">🕸️ Graph</a>
                     <a href="search.html" class="nav-link " data-translate="search">🔍 Search</a>
                     <a href="new.html" class="nav-link " data-translate="newPage">➕ New Page</a>
@@ -77,7 +129,7 @@
                             <a href="daily/2026-08-16.html">Daily Note 2026-08-16</a>
                         </li>
                         
-                        <li class="page-item ">
+                        <li class="page-item active">
                             <a href="project-ideas.html">Project Ideas</a>
                         </li>
                         
@@ -103,118 +155,55 @@
         
         <main class="content">
             
-<div class="home-page">
+<article class="wiki-page">
     <header class="page-header">
-        <h1 data-translate="welcome">📚 Welcome to Your Personal Wiki</h1>
+        <div class="page-actions">
+            <a href="edit/project-ideas.html" class="btn-edit" data-translate="btnEdit">✏️ Редактировать</a>
+            <button class="btn-delete" onclick="WikiApp.handleDeletePage('project-ideas')" data-translate="delete">🗑️ Удалить</button>
+        </div>
+        <h1>Project Ideas</h1>
+        
+        <p class="meta">Создано: 2026-08-15</p>
+        
+        
+        <div class="tags">
+            
+            <span class="tag">#projects</span>
+            
+            <span class="tag">#ideas</span>
+            
+        </div>
+        
     </header>
     
-    
-    
-    <section class="recent-section">
-        <h2 data-translate="recentNotes">🕐 Недавние заметки</h2>
-        
-        <div class="page-list-compact">
-            
-            <div class="page-item-compact">
-                <a href="daily/2026-08-16.html">Daily Note 2026-08-16</a>
-                
-                <span class="page-date">2026-08-16</span>
-                
-            </div>
-            
-            <div class="page-item-compact">
-                <a href="index.html">Welcome to Personal Wiki</a>
-                
-                <span class="page-date">2026-08-16</span>
-                
-            </div>
-            
-            <div class="page-item-compact">
-                <a href="test page.html">Test Page</a>
-                
-                <span class="page-date">2026-08-16</span>
-                
-            </div>
-            
-            <div class="page-item-compact">
-                <a href="project-ideas.html">Project Ideas</a>
-                
-                <span class="page-date">2026-08-15</span>
-                
-            </div>
-            
-        </div>
-        
-    </section>
-    
-    <section class="overview">
-        <h2 data-translate="allPages">Все страницы (4)</h2>
-        
-        
-        <div class="page-grid">
-            
-            <div class="page-card">
-                <h3><a href="daily/2026-08-16.html">Daily Note 2026-08-16</a></h3>
-                
-                <p class="folder-path">📁 daily</p>
-                
-                
-                <div class="tags">
-                    
-                    <a href="tags/daily.html" class="tag-link">#daily</a>
-                    
-                    <a href="tags/journal.html" class="tag-link">#journal</a>
-                    
-                </div>
-                
-            </div>
-            
-            <div class="page-card">
-                <h3><a href="project-ideas.html">Project Ideas</a></h3>
-                
-                
-                <div class="tags">
-                    
-                    <a href="tags/projects.html" class="tag-link">#projects</a>
-                    
-                    <a href="tags/ideas.html" class="tag-link">#ideas</a>
-                    
-                </div>
-                
-            </div>
-            
-            <div class="page-card">
-                <h3><a href="test page.html">Test Page</a></h3>
-                
-                
-                <div class="tags">
-                    
-                    <a href="tags/test.html" class="tag-link">#test</a>
-                    
-                    <a href="tags/demo.html" class="tag-link">#demo</a>
-                    
-                </div>
-                
-            </div>
-            
-            <div class="page-card">
-                <h3><a href="index.html">Welcome to Personal Wiki</a></h3>
-                
-                
-                <div class="tags">
-                    
-                    <a href="tags/welcome.html" class="tag-link">#welcome</a>
-                    
-                    <a href="tags/getting-started.html" class="tag-link">#getting-started</a>
-                    
-                </div>
-                
-            </div>
-            
-        </div>
-        
-    </section>
-</div>
+    <div class="page-content">
+        <h1 id="project-ideas">Project Ideas 💡</h1>
+<p>A collection of project ideas and brainstorming.</p>
+<h2 id="web-projects">Web Projects</h2>
+<ul>
+<li>Personal wiki (this one!)</li>
+<li>Task manager with Pomodoro timer</li>
+<li>Recipe organizer with meal planning</li>
+</ul>
+<h2 id="learning-goals">Learning Goals</h2>
+<ul>
+<li><a href="#" class="broken-link" title="Page not found: Machine Learning Basics">Machine Learning Basics</a> - Want to learn more about ML</li>
+<li><a href="#" class="broken-link" title="Page not found: Web Development Notes">Web Development Notes</a> - Collect web dev resources</li>
+<li>Build a mobile app</li>
+</ul>
+<h2 id="resources">Resources</h2>
+<p>Check out the <a href="index.html" class="wiki-link">index</a> for getting started.</p>
+<h2 id="notes">Notes</h2>
+<blockquote>
+<p>Remember: The best project is one you'll actually finish!</p>
+</blockquote>
+<ul>
+<li>[x] Set up wiki</li>
+<li>[ ] Add more ideas</li>
+<li>[ ] Start first project</li>
+</ul>
+    </div>
+</article>
 
         </main>
     </div>
