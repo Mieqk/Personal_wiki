@@ -15,7 +15,6 @@ a = Analysis(
 pyz = PYZ(a.pure)
 
 exe = EXE(
-    icon='icon.ico',
     pyz,
     a.scripts,
     [],
@@ -31,6 +30,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon='icon.ico',
 )
 coll = COLLECT(
     exe,
