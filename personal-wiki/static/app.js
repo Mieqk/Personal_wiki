@@ -74,9 +74,7 @@ const WikiApp = {
             totalLinks: 'Total Links:',
             zoomIn: 'Zoom In',
             zoomOut: 'Zoom Out',
-            resetZoom: 'Reset',
-            pinnedPages: '📌 Pinned Pages',
-            recentNotes: '🕐 Recent Notes'
+            resetZoom: 'Reset'
         },
         ru: {
             home: '🏠 Главная',
@@ -146,9 +144,7 @@ const WikiApp = {
             totalLinks: 'Всего связей:',
             zoomIn: 'Увеличить',
             zoomOut: 'Уменьшить',
-            resetZoom: 'Сбросить',
-            pinnedPages: '📌 Закреплённые заметки',
-            recentNotes: '🕐 Недавние заметки'
+            resetZoom: 'Сбросить'
         },
         es: {
             home: '🏠 Inicio',
@@ -218,9 +214,7 @@ const WikiApp = {
             totalLinks: 'Total de enlaces:',
             zoomIn: 'Acercar',
             zoomOut: 'Alejar',
-            resetZoom: 'Restablecer',
-            pinnedPages: '📌 Páginas Fijadas',
-            recentNotes: '🕐 Notas Recientes'
+            resetZoom: 'Restablecer'
         },
         de: {
             home: '🏠 Startseite',
@@ -290,9 +284,7 @@ const WikiApp = {
             totalLinks: 'Gesamtverbindungen:',
             zoomIn: 'Vergrößern',
             zoomOut: 'Verkleinern',
-            resetZoom: 'Zurücksetzen',
-            pinnedPages: '📌 Angeheftete Seiten',
-            recentNotes: '🕐 Letzte Notizen'
+            resetZoom: 'Zurücksetzen'
         },
         fr: {
             home: '🏠 Accueil',
@@ -362,9 +354,7 @@ const WikiApp = {
             totalLinks: 'Nombre total de liens:',
             zoomIn: 'Zoom avant',
             zoomOut: 'Zoom arrière',
-            resetZoom: 'Réinitialiser',
-            pinnedPages: '📌 Pages Épinglées',
-            recentNotes: '🕐 Notes Récentes'
+            resetZoom: 'Réinitialiser'
         },
         zh: {
             home: '🏠 首页',
@@ -434,9 +424,7 @@ const WikiApp = {
             totalLinks: '链接总数:',
             zoomIn: '放大',
             zoomOut: '缩小',
-            resetZoom: '重置',
-            pinnedPages: '📌 固定页面',
-            recentNotes: '🕐 最近笔记'
+            resetZoom: '重置'
         },
         ja: {
             home: '🏠 ホーム',
@@ -1113,10 +1101,53 @@ const WikiApp = {
         dailyNoteLink.href = `daily/${formattedDate}.html`;
         dailyNoteLink.innerHTML = `📅 ${dayName}`;
         dailyNoteLink.title = "Today's Daily Note";
+        
+        // Create daily note if it doesn't exist
+        dailyNoteLink.addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch(`daily/${formattedDate}.html`, { method: 'HEAD' });
+                if (!response.ok) {
+                    // File doesn't exist, create it
+                    await createDailyNote(formattedDate, dayName);
+                }
+                window.location.href = `daily/${formattedDate}.html`;
+            } catch (err) {
+                // Error checking, just navigate (might be created on the fly)
+                window.location.href = `daily/${formattedDate}.html`;
+            }
+        });
 
         const pagesSection = navSection.querySelector('.nav-section:first-child');
         if (pagesSection) {
             pagesSection.parentNode.insertBefore(dailyNoteLink, pagesSection);
+        }
+    },
+    
+    // Create a new daily note
+    async createDailyNote(date, dayName) {
+        const title = `${dayName}, ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}`;
+        const content = `# ${title}\n\n## Morning\n\n\n## Afternoon\n\n\n## Evening\n\n\n### Gratitude\n1. \n2. \n3. \n\n### Notes\n\n`;
+        
+        try {
+            const response = await fetch('/api/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: title,
+                    content: content,
+                    folder: 'daily',
+                    filename: date
+                })
+            });
+            
+            if (!response.ok) {
+                console.error('Failed to create daily note');
+            }
+        } catch (err) {
+            console.error('Error creating daily note:', err);
         }
     },
 

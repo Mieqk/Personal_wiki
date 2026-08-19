@@ -248,14 +248,14 @@ a:hover {
 }
 
 .sidebar-header {
-    padding: 12px 12px;
+    padding: 12px 8px;
     margin-bottom: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
-    flex-wrap: wrap;
-    position: relative;
+    gap: 4px;
+    flex-wrap: nowrap;
+    min-width: 0;
 }
 
 .sidebar-header h1 {
@@ -269,7 +269,7 @@ a:hover {
     text-overflow: ellipsis;
     flex-shrink: 1;
     min-width: 0;
-    max-width: 180px;
+    max-width: calc(100% - 70px);
 }
 
 .sidebar-header h1 a {
@@ -291,14 +291,16 @@ a:hover {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    padding: 4px 8px;
+    padding: 4px 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     transition: var(--transition-smooth);
     white-space: nowrap;
+    min-width: 26px;
+    justify-content: center;
 }
 
 .theme-selector-btn:hover {
@@ -309,18 +311,17 @@ a:hover {
 .theme-dropdown {
     position: absolute;
     top: 100%;
-    right: 0;
+    left: 0;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 8px;
-    min-width: 220px;
-    max-width: 260px;
-    max-height: 350px;
-    overflow-y: auto;
-    z-index: 10000;
+    min-width: 160px;
+    max-width: 200px;
+    z-index: 1000;
     display: none;
+    margin-top: 4px;
 }
 
 .theme-dropdown.show {
@@ -346,7 +347,6 @@ a:hover {
     transition: var(--transition-smooth);
     font-size: 13px;
     color: var(--text-secondary);
-    white-space: nowrap;
 }
 
 .theme-option:hover {
@@ -370,7 +370,7 @@ a:hover {
 /* Language selector */
 .lang-selector {
     position: relative;
-    margin-left: 8px;
+    margin-left: 2px;
     flex-shrink: 0;
 }
 
@@ -378,13 +378,15 @@ a:hover {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    padding: 4px 8px;
+    padding: 3px 5px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 500;
     color: var(--text-secondary);
     transition: var(--transition-smooth);
     white-space: nowrap;
+    min-width: 24px;
+    justify-content: center;
 }
 
 .lang-selector-btn:hover {
@@ -396,18 +398,17 @@ a:hover {
 .lang-dropdown {
     position: absolute;
     top: 100%;
-    right: 0;
+    left: 0;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 8px;
-    min-width: 140px;
-    max-width: 200px;
-    max-height: 350px;
-    overflow-y: auto;
-    z-index: 10000;
+    min-width: 100px;
+    max-width: 140px;
+    z-index: 1000;
     display: none;
+    margin-top: 4px;
 }
 
 .lang-dropdown.show {
@@ -421,7 +422,6 @@ a:hover {
     transition: var(--transition-smooth);
     font-size: 13px;
     color: var(--text-secondary);
-    white-space: nowrap;
 }
 
 .lang-option:hover {
@@ -438,10 +438,8 @@ a:hover {
 .header-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 3px;
     flex-shrink: 0;
-    position: relative;
-    z-index: 10001;
 }
 
 .sidebar-nav {

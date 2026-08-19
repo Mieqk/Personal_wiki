@@ -94,6 +94,7 @@ def cmd_serve(args: argparse.Namespace) -> int:
         folder = data.get('folder', '').strip()
         tags_input = data.get('tags', '').strip()
         content = data.get('content', '').strip()
+        filename = data.get('filename', '').strip()
         
         if not title or not content:
             return jsonify({'error': 'Title and content are required'}), 400
@@ -109,11 +110,14 @@ def cmd_serve(args: argparse.Namespace) -> int:
         if tags_input:
             tags = [tag.strip() for tag in tags_input.split(',') if tag.strip()]
         
-        # Generate slug from title
-        slug = title.lower()
-        for char in '-<>[]{}()/\\?@&!#$%*+|=^_~':
-            slug = slug.replace(char, '-')
-        slug = slug.strip('-')
+        # Generate slug from title or use provided filename
+        if filename:
+            slug = filename
+        else:
+            slug = title.lower()
+            for char in '-<>[]{}()/\\?@&!#$%*+|=^_~':
+                slug = slug.replace(char, '-')
+            slug = slug.strip('-')
         
         # Build file path
         notes_dir = source

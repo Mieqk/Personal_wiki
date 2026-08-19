@@ -1101,10 +1101,53 @@ const WikiApp = {
         dailyNoteLink.href = `daily/${formattedDate}.html`;
         dailyNoteLink.innerHTML = `📅 ${dayName}`;
         dailyNoteLink.title = "Today's Daily Note";
+        
+        // Create daily note if it doesn't exist
+        dailyNoteLink.addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch(`daily/${formattedDate}.html`, { method: 'HEAD' });
+                if (!response.ok) {
+                    // File doesn't exist, create it
+                    await createDailyNote(formattedDate, dayName);
+                }
+                window.location.href = `daily/${formattedDate}.html`;
+            } catch (err) {
+                // Error checking, just navigate (might be created on the fly)
+                window.location.href = `daily/${formattedDate}.html`;
+            }
+        });
 
         const pagesSection = navSection.querySelector('.nav-section:first-child');
         if (pagesSection) {
             pagesSection.parentNode.insertBefore(dailyNoteLink, pagesSection);
+        }
+    },
+    
+    // Create a new daily note
+    async createDailyNote(date, dayName) {
+        const title = `${dayName}, ${new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}`;
+        const content = `# ${title}\n\n## Morning\n\n\n## Afternoon\n\n\n## Evening\n\n\n### Gratitude\n1. \n2. \n3. \n\n### Notes\n\n`;
+        
+        try {
+            const response = await fetch('/api/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: title,
+                    content: content,
+                    folder: 'daily',
+                    filename: date
+                })
+            });
+            
+            if (!response.ok) {
+                console.error('Failed to create daily note');
+            }
+        } catch (err) {
+            console.error('Error creating daily note:', err);
         }
     },
 
