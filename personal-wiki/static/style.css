@@ -248,7 +248,7 @@ a:hover {
 }
 
 .sidebar-header {
-    padding: 12px 12px;
+    padding: 12px 8px;
     margin-bottom: 8px;
     display: flex;
     align-items: center;
@@ -269,7 +269,7 @@ a:hover {
     text-overflow: ellipsis;
     flex-shrink: 1;
     min-width: 0;
-    max-width: calc(100% - 80px);
+    max-width: calc(100% - 70px);
 }
 
 .sidebar-header h1 a {
@@ -291,15 +291,15 @@ a:hover {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    padding: 4px 6px;
+    padding: 4px 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     display: flex;
     align-items: center;
     gap: 2px;
     transition: var(--transition-smooth);
     white-space: nowrap;
-    min-width: 28px;
+    min-width: 26px;
     justify-content: center;
 }
 
@@ -311,14 +311,14 @@ a:hover {
 .theme-dropdown {
     position: absolute;
     top: 100%;
-    right: 0;
+    left: 0;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 8px;
-    min-width: 180px;
-    max-width: 220px;
+    min-width: 160px;
+    max-width: 200px;
     z-index: 1000;
     display: none;
     margin-top: 4px;
@@ -370,7 +370,7 @@ a:hover {
 /* Language selector */
 .lang-selector {
     position: relative;
-    margin-left: 4px;
+    margin-left: 2px;
     flex-shrink: 0;
 }
 
@@ -378,14 +378,14 @@ a:hover {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    padding: 4px 6px;
+    padding: 3px 5px;
     cursor: pointer;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
     color: var(--text-secondary);
     transition: var(--transition-smooth);
     white-space: nowrap;
-    min-width: 28px;
+    min-width: 24px;
     justify-content: center;
 }
 
@@ -398,14 +398,14 @@ a:hover {
 .lang-dropdown {
     position: absolute;
     top: 100%;
-    right: 0;
+    left: 0;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 8px;
-    min-width: 120px;
-    max-width: 160px;
+    min-width: 100px;
+    max-width: 140px;
     z-index: 1000;
     display: none;
     margin-top: 4px;
@@ -438,7 +438,7 @@ a:hover {
 .header-controls {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
     flex-shrink: 0;
 }
 
