@@ -253,8 +253,9 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 4px;
     flex-wrap: nowrap;
+    min-width: 0;
 }
 
 .sidebar-header h1 {
@@ -268,6 +269,7 @@ a:hover {
     text-overflow: ellipsis;
     flex-shrink: 1;
     min-width: 0;
+    max-width: calc(100% - 80px);
 }
 
 .sidebar-header h1 a {
@@ -289,14 +291,16 @@ a:hover {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    padding: 4px 8px;
+    padding: 4px 6px;
     cursor: pointer;
     font-size: 16px;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     transition: var(--transition-smooth);
     white-space: nowrap;
+    min-width: 28px;
+    justify-content: center;
 }
 
 .theme-selector-btn:hover {
@@ -366,7 +370,7 @@ a:hover {
 /* Language selector */
 .lang-selector {
     position: relative;
-    margin-left: 8px;
+    margin-left: 4px;
     flex-shrink: 0;
 }
 
@@ -374,13 +378,15 @@ a:hover {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    padding: 4px 8px;
+    padding: 4px 6px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--text-secondary);
     transition: var(--transition-smooth);
     white-space: nowrap;
+    min-width: 28px;
+    justify-content: center;
 }
 
 .lang-selector-btn:hover {
@@ -432,7 +438,7 @@ a:hover {
 .header-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     flex-shrink: 0;
 }
 
